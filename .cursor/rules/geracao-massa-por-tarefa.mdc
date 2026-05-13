@@ -1,0 +1,22 @@
+---
+description: Pedidos do tipo "N casos com status X para tarefa Y" — massa de biometria via banco
+globs: GerarMassa.js,scripts/gerarMassasTarefa.mjs,tests/**/*biometria*.spec.js
+alwaysApply: false
+---
+
+# Linguagem natural → massa por tarefa
+
+Quando o usuário pedir **vários casos com um status** ligados a uma **tarefa** (ex.: «5 casos com status approved para validação X», «preciso de 3 rejected para o fluxo Y»), interpretar como:
+
+1. **Nome da tarefa** → pasta `massaGerada/<nomeSanitizado>/` (ou `raizPastas` definida).
+2. **Status** → filtro em `logs_general`: `session_status.status` (JSON em `data`, com `coalesce` outer/inner como em `GerarMassa.js`).
+3. **Quantidade** → um caso por **CPF distinto**; pastas `CT001_<status>`, `CT002_<status>`, … com as mesmas **6 imagens** (`CENTER_1.png` …) que o fluxo único `gerarMassaBiometria`.
+4. **Referência no banco** (hash, trecho de JSON, CPF no payload) → mapear para `referenciaBanco` (filtro `data::text ilike`).
+5. **Execução** → chamar `gerarMassasParaTarefa({ nomeTarefa, statusAlvo, quantidade, referenciaBanco?, nomeAlvo?, maxPaginas? })` ou CLI `node scripts/gerarMassasTarefa.mjs --task … --status … --n …`.
+
+Regras já existentes:
+
+- CPFs em `baseDados` continuam **bloqueados** na seleção.
+- Cada `SELECT` no banco respeita **DB_SAFE_SELECT_MAX**; a busca usa **paginação** (`id < cursor`, várias páginas até `maxPaginas`).
+
+Após gerar, os testes Playwright devem usar `processarBiometria` / `scenarioName` igual ao `casos[i].scenarioName` retornado e o CPF de `casos[i].cpfSelecionado`.

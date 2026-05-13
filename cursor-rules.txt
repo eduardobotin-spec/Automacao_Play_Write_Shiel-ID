@@ -1,0 +1,13 @@
+REGRAS OBRIGATÓRIAS:
+
+- NÃO criar novos arquivos
+- NÃO dividir código em múltiplos módulos
+- Manter tudo no mesmo arquivo
+- Código simples e direto
+- Nomes de funções claros (ex: salvarLog, pegarStatus)
+- Criar blocos com comentários grandes
+- Evitar abstração
+- Evitar complexidade
+- Código deve ser entendido em menos de 1 minuto
+
+Se violar qualquer regra, a resposta está ERRADA.

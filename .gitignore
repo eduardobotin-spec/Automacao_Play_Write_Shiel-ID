@@ -1,0 +1,8 @@
+node_modules/
+.env
+playwright-report/
+test-results/
+logs/
+logs_txt/
+logs_pdf/
+logs_xlsx/

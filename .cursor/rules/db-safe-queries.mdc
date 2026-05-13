@@ -1,0 +1,29 @@
+---
+description: Consultas PostgreSQL de baixo impacto (staging e produção)
+globs: services/**/*.js,GerarMassa.js,**/*.spec.js
+alwaysApply: false
+---
+
+# Banco — consultas seguras (staging e produção)
+
+## Regra
+
+- **Todas** as consultas orientadas a leitura de dados para automação/QA devem ser **curtas e simples**.
+- **Máximo de 20 linhas por `SELECT`** no código dos serviços (`clampDbSelectLimit` / `DB_SAFE_SELECT_MAX` em `services/dbSelectLimits.js`), salvo exceção documentada e aprovada.
+- O teto **não distingue** staging de produção: o mesmo limite vale para ambos.
+- Opcional: variável `DB_SAFE_SELECT_MAX` no `.env` para **reduzir** o limite (valor entre 1 e 20); valores acima de 20 são ignorados (permanece 20).
+
+## O que evitar
+
+- `SELECT *` em tabelas grandes sem `LIMIT` (proibido nos serviços; usar funções existentes).
+- Consultas complexas (muitos joins, funções, subqueries pesadas) quando uma consulta indexada + `LIMIT` resolve.
+- `COUNT(*)` em tabela inteira sem filtro estreito quando a tabela for grande (avaliar impacto).
+
+## Escrita (DML)
+
+- `UPDATE` / `DELETE` pontuais por chave (ex.: CPF/hash) são aceitáveis quando já existirem no fluxo; não ampliar escopo de limpeza sem alinhamento.
+
+## Referência no código
+
+- Importar `clampDbSelectLimit` e aplicar em qualquer novo helper que monte `SELECT` com `LIMIT`.
+- Produção: ver `db-production-governance.mdc` e `services/dbProductionGate.js` (gate de leitura + bloqueio de escrita).

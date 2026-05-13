@@ -1,0 +1,67 @@
+---
+description: Shiel ID KYC API - fonte de verdade (endpoints/status/auth) para QA
+alwaysApply: true
+---
+
+# Shiel ID (KYC) — referência rápida para QA
+
+Use esta regra sempre que a conversa envolver Shiel ID / KYC / onboarding / hash / webhook / validações.
+
+## Base URL
+
+- Ambiente documentado: `https://api.shielid.com/api/`
+
+## Autenticação
+
+- **Basic Auth** via header `Authorization: Basic <base64(username:password)>`
+  - Username = **API KEY**
+  - Password = **API SECRET**
+- Nunca colocar credenciais reais em mensagens, commits, logs ou exemplos.
+
+## Status do KYC (hash)
+
+Conforme doc, os status possíveis da hash incluem:
+- `created`
+- `started`
+- `approved`
+- `rejected`
+- `pending`
+
+## Diretriz QA para divergências e assincronia
+
+- **Não inferir “aprovado”** se houver sinais de processamento ainda em andamento.
+  - Se fontes divergirem (ex.: um campo indica execução em progresso e outro indica final), trate como **inconclusivo** até haver evidência final explícita.
+- Se a doc **não especificar** um detalhe (campo, status intermediário, header, etc.), deixar claro que é “não especificado” e pedir a informação faltante, ao invés de supor.
+
+## Integrações assíncronas (quando aplicável)
+
+- **Webhook**: notifica sistemas externos sobre progresso/conclusão (endpoint do cliente deve aceitar **POST**).
+- **postMessage** (iframe): mensagens para `parent window` com estrutura mínima:
+
+```json
+{
+  "status": "approved",
+  "timestamp": "2025-08-12T15:30:45.123Z"
+}
+```
+
+Origens permitidas citadas na doc (exemplo):
+- `https://api.shielid.com`
+- `https://kyc.shielid.com`
+
+## Como responder (padrão do agente)
+
+Ao sugerir integração/chamada:
+- citar **método** e **endpoint** (relativo à Base URL)
+- citar **auth** (Basic Auth) e headers obrigatórios quando conhecidos
+- pedir explicitamente o que faltar (ambiente, credenciais, `hash`, `userId`, etc.)
+
+Endpoints/ações relevantes na doc (referência de intenção):
+- criar sessão KYC (onboarding): `getNewHashKYC` (POST)
+- criar sessão de transação (validação facial): `getNewTransactionKYC` (POST)
+- listar hashes: `getHashs` (GET)
+- consultar detalhes da hash: `getHashData` (GET)
+- configurar/remover webhook: `setWebhook` / `removeWebhook` (POST)
+- validações: `checkFace`, `consultDocument`
+- verificação: e-mail (`sendEmailToken` / `checkEmailToken`), telefone (`sendPhoneToken` / `checkPhoneToken`)
+

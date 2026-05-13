@@ -1,0 +1,34 @@
+---
+description: PostgreSQL produção — autorização humana, staging primeiro, segredos
+globs: services/**/*.js,scripts/**/*.mjs,GerarMassa.js,**/*.spec.js,.env*
+alwaysApply: true
+---
+
+# Banco de produção — governança obrigatória
+
+## Segurança
+
+- **Nunca** colocar senha, host de produção ou secrets reais em código, commits, `.env.example`, logs ou chats.
+- Se credencial vazar: tratar como incidente; **rotacionar** senha no banco e revisar acessos.
+
+## Agentes (Cursor / automação)
+
+- **Não** executar consultas nem scripts que conectem em produção **por conta própria**.
+- **Sempre** perguntar ao humano algo explícito, por exemplo: «Autoriza leitura em produção após validação em staging?» e só prosseguir se a resposta for clara (**sim / autorizado**).
+- **Não** sugerir nem preencher `DB_PRODUCTION_EXECUTION_ALLOWED` / `DB_PRODUCTION_AFTER_STAGING` sem ordem explícita do humano (essas flags são confirmação **dele**, não da IA).
+- **Nunca** afirmar «zero impacto garantido» em produção: o repositório reduz risco (LIMIT, gates, sem escrita em prod), mas impacto residual depende do plano e do banco.
+
+## Ordem obrigatória
+
+1. Executar e validar o **mesmo fluxo em staging**.
+2. Só então, com autorização explícita, apontar `.env` para produção e definir as flags documentadas em `.env.example`.
+
+## Comportamento no código
+
+- Hosts de produção: apenas `DB_PRODUCTION_HOST` ou `DB_PRODUCTION_HOSTS` no **`.env` local** (nunca commitado).
+- **Leitura** (`consultar*`, `getLogsGeral`, etc.): exige `DB_PRODUCTION_EXECUTION_ALLOWED=yes` **e** `DB_PRODUCTION_AFTER_STAGING=yes` quando o host coincide com produção (`services/dbProductionGate.js`).
+- **Escrita** (`limpar*`, `configurarModuleConsult`, `updateModulePricesByProvider`): **bloqueada** para host de produção.
+
+## Consultas
+
+- Manter consultas **curtas**, **`LIMIT` baixo** e sem escrita em prod; ver também a regra `db-safe-queries.mdc`.

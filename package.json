@@ -1,0 +1,30 @@
+{
+  "name": "automacao-2.0",
+  "private": true,
+  "description": "Testes Shiel-ID (Conversao Alta, Equilíbrio) — executar a partir desta pasta.",
+  "scripts": {
+    "pretest": "node scripts/validate-templates.mjs",
+    "test": "playwright test -c playwright.config.js",
+    "test:web": "playwright test -c playwright.config.js tests/configWeb.spec.js",
+    "test:ui": "playwright test -c playwright.config.js --ui",
+    "test:headed": "playwright test -c playwright.config.js --headed",
+    "produtos:build": "node scripts/gerarBaseProdutos.mjs",
+    "massa:tarefa": "node scripts/gerarMassasTarefa.mjs",
+    "inventario:security-gate": "node scripts/inventariarCasosSecurityGate.mjs",
+    "hashjson:motivos": "node scripts/listarHashJsonMotivos.mjs",
+    "hashjson:rejection-freq": "node scripts/consolidarRejectionMessages.mjs",
+    "dash:build": "node Dash_Resultados/generateDashboard.js",
+    "log:pdf": "node log_pdf/generateAllPdfs.js"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.1",
+    "acorn": "^8.15.0",
+    "acorn-walk": "^8.3.4",
+    "dotenv": "^16.4.5",
+    "pdfkit": "^0.18.0",
+    "pg": "^8.13.0"
+  },
+  "dependencies": {
+    "xlsx": "^0.18.5"
+  }
+}

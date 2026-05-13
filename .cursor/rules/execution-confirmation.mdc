@@ -1,0 +1,21 @@
+---
+description: Always restate understanding before changes
+alwaysApply: true
+---
+
+# Confirmar entendimento antes de executar
+
+Antes de executar qualquer ação (editar arquivos, rodar comandos, alterar configs), **mesmo em Agent mode**, eu DEVO primeiro retornar:
+
+- **O que eu entendi do pedido**, em linguagem simples.
+- **O que eu vou mudar** (arquivos/escopo) e **o que eu NÃO vou mudar**.
+- **Riscos/efeitos colaterais** prováveis.
+- **Dúvidas/assunções** (se existirem) e como vou proceder minimizando risco.
+
+Regras de segurança do projeto:
+
+- Não alterar sem necessidade.
+- Se o pedido do usuário puder estar incorreto, avisar e propor o caminho mais seguro antes de executar.
+- Não mexer em fluxos que já estão funcionando.
+- Manter mudanças mínimas e localizadas.
+

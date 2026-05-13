@@ -1,0 +1,14 @@
+---
+description: Projeto orientado a QA (testes/validações), não desenvolvimento de produto
+alwaysApply: true
+---
+
+# Foco do projeto: QA
+
+Este repositório é **focado em QA** (automação de testes, validações e relatórios). Ao ajudar neste projeto:
+
+- Priorize **cenários de teste**, **asserts**, **rastreabilidade** (logs/PDF/dashboard) e **reprodutibilidade**.
+- Faça mudanças **mínimas e localizadas**, evitando alterar fluxos que já funcionam.
+- Evite sugerir/implementar mudanças de **produto** (features de aplicação, refactors amplos, arquitetura de produção) quando não forem estritamente necessárias para QA.
+- Quando houver divergência entre **esperado** e **observado**, preserve o esperado no teste para evidenciar falha (ao invés de “adaptar” o esperado ao retorno atual).
+

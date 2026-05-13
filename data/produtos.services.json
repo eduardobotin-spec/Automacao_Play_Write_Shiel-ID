@@ -1,0 +1,517 @@
+{
+  "meta": {
+    "generated_at": "2026-05-06T19:41:39.421Z",
+    "generated_at_local": "2026-05-06_16-41-39",
+    "db_name": "shielid",
+    "source_tables": [
+      "services",
+      "invoices_itens"
+    ],
+    "join_key": "invoices_itens.service_id -> services.id",
+    "price_field": "invoices_itens.total_price",
+    "invoices_database_filter": "testes-automatiz",
+    "aggregation": "latest (per service_id) + sum/min/max",
+    "panel_modules": {
+      "consulta_full": {
+        "label": "Consulta Full",
+        "includes_module_keys": [
+          "telefone",
+          "endereco",
+          "email",
+          "dados_cadastrais",
+          "beneficios_governo",
+          "pep_listas",
+          "impedidos_apostar"
+        ]
+      },
+      "telefone": {
+        "label": "Telefone"
+      },
+      "endereco": {
+        "label": "Endereço"
+      },
+      "email": {
+        "label": "E-mail"
+      },
+      "dados_cadastrais": {
+        "label": "Dados cadastrais"
+      },
+      "beneficios_governo": {
+        "label": "Benefícios governo"
+      },
+      "pep_listas": {
+        "label": "PEP e listas"
+      },
+      "impedidos_apostar": {
+        "label": "Impedidos apostar"
+      }
+    }
+  },
+  "products": [
+    {
+      "id": 13,
+      "service_name": "OCR",
+      "service_description": "Reconhecimento óptico de caracteres de documentos",
+      "default_price": null,
+      "min_price": 0.15,
+      "module_keys": [],
+      "includes_module_keys": [],
+      "is_eligible": true,
+      "is_discount": false,
+      "created_at": "2025-12-09T20:49:10.000Z",
+      "updated_at": "2025-12-09T20:49:10.000Z",
+      "invoices": {
+        "total_price": 0.15,
+        "total_price_latest": 0.15,
+        "total_price_sum": 6.45,
+        "total_price_min": 0.15,
+        "total_price_max": 0.15,
+        "invoices_itens_count": 43,
+        "latest_invoice_item": {
+          "id": 28389,
+          "service_id": 13,
+          "total_price": 0.15,
+          "quantity_service": 1,
+          "database": "testes-automatiz",
+          "item_type": "debit",
+          "created_at": "2026-04-27T16:11:07.000Z",
+          "updated_at": "2026-04-27T16:11:07.000Z"
+        }
+      }
+    },
+    {
+      "id": 14,
+      "service_name": "Facematch",
+      "service_description": "Comparação facial e prova de vida",
+      "default_price": null,
+      "min_price": 0.1,
+      "module_keys": [],
+      "includes_module_keys": [],
+      "is_eligible": true,
+      "is_discount": false,
+      "created_at": "2025-12-09T20:49:10.000Z",
+      "updated_at": "2025-12-09T20:49:10.000Z",
+      "invoices": {
+        "total_price": 0.1,
+        "total_price_latest": 0.1,
+        "total_price_sum": 11.7,
+        "total_price_min": 0.1,
+        "total_price_max": 0.1,
+        "invoices_itens_count": 117,
+        "latest_invoice_item": {
+          "id": 30574,
+          "service_id": 14,
+          "total_price": 0.1,
+          "quantity_service": 1,
+          "database": "testes-automatiz",
+          "item_type": "debit",
+          "created_at": "2026-05-06T18:44:20.000Z",
+          "updated_at": "2026-05-06T18:44:20.000Z"
+        }
+      }
+    },
+    {
+      "id": 15,
+      "service_name": "Consulta Face",
+      "service_description": "Consulta de dados na base da Certisign",
+      "default_price": 0.6,
+      "min_price": 0.6,
+      "module_keys": [],
+      "includes_module_keys": [],
+      "is_eligible": true,
+      "is_discount": false,
+      "created_at": "2025-12-09T20:49:10.000Z",
+      "updated_at": "2025-12-09T20:49:10.000Z",
+      "invoices": {
+        "total_price": 0.6,
+        "total_price_latest": 0.6,
+        "total_price_sum": 710.4,
+        "total_price_min": 0.6,
+        "total_price_max": 0.6,
+        "invoices_itens_count": 1184,
+        "latest_invoice_item": {
+          "id": 30584,
+          "service_id": 15,
+          "total_price": 0.6,
+          "quantity_service": 1,
+          "database": "testes-automatiz",
+          "item_type": "debit",
+          "created_at": "2026-05-06T18:48:46.000Z",
+          "updated_at": "2026-05-06T18:48:46.000Z"
+        }
+      }
+    },
+    {
+      "id": 16,
+      "service_name": "Consulta Completa",
+      "service_description": "Consulta de dados na base da Netrin",
+      "default_price": null,
+      "min_price": 0.3,
+      "module_keys": [
+        "consulta_full"
+      ],
+      "includes_module_keys": [
+        "telefone",
+        "endereco",
+        "email",
+        "dados_cadastrais",
+        "beneficios_governo",
+        "pep_listas",
+        "impedidos_apostar"
+      ],
+      "is_eligible": true,
+      "is_discount": false,
+      "created_at": "2025-12-09T20:49:10.000Z",
+      "updated_at": "2025-12-09T20:49:10.000Z",
+      "invoices": {
+        "total_price": 0.3,
+        "total_price_latest": 0.3,
+        "total_price_sum": 102.3,
+        "total_price_min": 0.3,
+        "total_price_max": 0.3,
+        "invoices_itens_count": 341,
+        "latest_invoice_item": {
+          "id": 27990,
+          "service_id": 16,
+          "total_price": 0.3,
+          "quantity_service": 1,
+          "database": "testes-automatiz",
+          "item_type": "debit",
+          "created_at": "2026-04-17T19:30:32.000Z",
+          "updated_at": "2026-04-17T19:30:32.000Z"
+        }
+      }
+    },
+    {
+      "id": 17,
+      "service_name": "Consulta Básica",
+      "service_description": "Consulta de dados básica com a base da Credilink",
+      "default_price": null,
+      "min_price": null,
+      "module_keys": [],
+      "includes_module_keys": [],
+      "is_eligible": true,
+      "is_discount": false,
+      "created_at": "2025-12-09T20:49:10.000Z",
+      "updated_at": "2025-12-09T20:49:10.000Z",
+      "invoices": null
+    },
+    {
+      "id": 18,
+      "service_name": "Email",
+      "service_description": "Confirmação de email",
+      "default_price": null,
+      "min_price": null,
+      "module_keys": [],
+      "includes_module_keys": [],
+      "is_eligible": false,
+      "is_discount": false,
+      "created_at": "2025-12-09T20:49:10.000Z",
+      "updated_at": "2025-12-09T20:49:10.000Z",
+      "invoices": null
+    },
+    {
+      "id": 19,
+      "service_name": "Phone",
+      "service_description": "Confirmação de telefone",
+      "default_price": null,
+      "min_price": null,
+      "module_keys": [],
+      "includes_module_keys": [],
+      "is_eligible": false,
+      "is_discount": false,
+      "created_at": "2025-12-09T20:49:10.000Z",
+      "updated_at": "2025-12-09T20:49:10.000Z",
+      "invoices": null
+    },
+    {
+      "id": 20,
+      "service_name": "Transacional",
+      "service_description": "Análise transacional",
+      "default_price": null,
+      "min_price": 0.39,
+      "module_keys": [],
+      "includes_module_keys": [],
+      "is_eligible": false,
+      "is_discount": false,
+      "created_at": "2025-12-09T20:49:10.000Z",
+      "updated_at": "2025-12-09T20:49:10.000Z",
+      "invoices": {
+        "total_price": 0.39,
+        "total_price_latest": 0.39,
+        "total_price_sum": 12.09,
+        "total_price_min": 0.39,
+        "total_price_max": 0.39,
+        "invoices_itens_count": 31,
+        "latest_invoice_item": {
+          "id": 27907,
+          "service_id": 20,
+          "total_price": 0.39,
+          "quantity_service": 1,
+          "database": "testes-automatiz",
+          "item_type": "debit",
+          "created_at": "2026-04-16T16:25:17.000Z",
+          "updated_at": "2026-04-16T16:25:17.000Z"
+        }
+      }
+    },
+    {
+      "id": 21,
+      "service_name": "Device",
+      "service_description": "Informações do dispositivo do usuário",
+      "default_price": null,
+      "min_price": 0.01,
+      "module_keys": [],
+      "includes_module_keys": [],
+      "is_eligible": true,
+      "is_discount": false,
+      "created_at": "2025-12-09T20:49:10.000Z",
+      "updated_at": "2025-12-09T20:49:10.000Z",
+      "invoices": {
+        "total_price": 0.01,
+        "total_price_latest": 0.01,
+        "total_price_sum": 13.07,
+        "total_price_min": 0.01,
+        "total_price_max": 0.01,
+        "invoices_itens_count": 1307,
+        "latest_invoice_item": {
+          "id": 30583,
+          "service_id": 21,
+          "total_price": 0.01,
+          "quantity_service": 1,
+          "database": "testes-automatiz",
+          "item_type": "debit",
+          "created_at": "2026-05-06T18:48:45.000Z",
+          "updated_at": "2026-05-06T18:48:45.000Z"
+        }
+      }
+    },
+    {
+      "id": 22,
+      "service_name": "Desconto Bundle",
+      "service_description": "Desconto por completar bundle de serviços",
+      "default_price": null,
+      "min_price": null,
+      "module_keys": [],
+      "includes_module_keys": [],
+      "is_eligible": false,
+      "is_discount": true,
+      "created_at": "2025-12-09T20:49:10.000Z",
+      "updated_at": "2025-12-09T20:49:10.000Z",
+      "invoices": null
+    },
+    {
+      "id": 23,
+      "service_name": "Doclink",
+      "service_description": "Fornecimento de documento sem necessidade de upload",
+      "default_price": null,
+      "min_price": null,
+      "module_keys": [],
+      "includes_module_keys": [],
+      "is_eligible": false,
+      "is_discount": false,
+      "created_at": "2026-02-12T21:48:13.000Z",
+      "updated_at": "2026-02-12T21:48:13.000Z",
+      "invoices": null
+    },
+    {
+      "id": 24,
+      "service_name": "Consulta Full",
+      "service_description": "Consulta completa de dados",
+      "default_price": null,
+      "min_price": 0.3,
+      "module_keys": [
+        "consulta_full"
+      ],
+      "includes_module_keys": [
+        "telefone",
+        "endereco",
+        "email",
+        "dados_cadastrais",
+        "beneficios_governo",
+        "pep_listas",
+        "impedidos_apostar"
+      ],
+      "is_eligible": true,
+      "is_discount": false,
+      "created_at": "2026-04-23T14:45:43.000Z",
+      "updated_at": "2026-04-23T14:45:43.000Z",
+      "invoices": {
+        "total_price": 0.3,
+        "total_price_latest": 0.3,
+        "total_price_sum": 10.8,
+        "total_price_min": 0.3,
+        "total_price_max": 0.3,
+        "invoices_itens_count": 36,
+        "latest_invoice_item": {
+          "id": 30582,
+          "service_id": 24,
+          "total_price": 0.3,
+          "quantity_service": 1,
+          "database": "testes-automatiz",
+          "item_type": "debit",
+          "created_at": "2026-05-06T18:48:33.000Z",
+          "updated_at": "2026-05-06T18:48:33.000Z"
+        }
+      }
+    },
+    {
+      "id": 25,
+      "service_name": "Consulta Telefone",
+      "service_description": "Consulta de telefones",
+      "default_price": null,
+      "min_price": null,
+      "module_keys": [
+        "telefone"
+      ],
+      "includes_module_keys": [],
+      "is_eligible": true,
+      "is_discount": false,
+      "created_at": "2026-04-23T14:45:43.000Z",
+      "updated_at": "2026-04-23T14:45:43.000Z",
+      "invoices": null
+    },
+    {
+      "id": 26,
+      "service_name": "Consulta Endereço",
+      "service_description": "Consulta de endereços",
+      "default_price": null,
+      "min_price": null,
+      "module_keys": [
+        "endereco"
+      ],
+      "includes_module_keys": [],
+      "is_eligible": true,
+      "is_discount": false,
+      "created_at": "2026-04-23T14:45:43.000Z",
+      "updated_at": "2026-04-23T14:45:43.000Z",
+      "invoices": null
+    },
+    {
+      "id": 27,
+      "service_name": "Consulta Email",
+      "service_description": "Consulta de emails",
+      "default_price": null,
+      "min_price": null,
+      "module_keys": [
+        "email"
+      ],
+      "includes_module_keys": [],
+      "is_eligible": true,
+      "is_discount": false,
+      "created_at": "2026-04-23T14:45:43.000Z",
+      "updated_at": "2026-04-23T14:45:43.000Z",
+      "invoices": null
+    },
+    {
+      "id": 28,
+      "service_name": "Consulta Dados Cadastrais",
+      "service_description": "Consulta dados cadastrais",
+      "default_price": null,
+      "min_price": 0.3,
+      "module_keys": [
+        "dados_cadastrais"
+      ],
+      "includes_module_keys": [],
+      "is_eligible": true,
+      "is_discount": false,
+      "created_at": "2026-04-23T14:45:43.000Z",
+      "updated_at": "2026-04-23T14:45:43.000Z",
+      "invoices": {
+        "total_price": 0.3,
+        "total_price_latest": 0.3,
+        "total_price_sum": 95.4,
+        "total_price_min": 0.3,
+        "total_price_max": 0.3,
+        "invoices_itens_count": 318,
+        "latest_invoice_item": {
+          "id": 30123,
+          "service_id": 28,
+          "total_price": 0.3,
+          "quantity_service": 1,
+          "database": "testes-automatiz",
+          "item_type": "debit",
+          "created_at": "2026-05-05T16:58:28.000Z",
+          "updated_at": "2026-05-05T16:58:28.000Z"
+        }
+      }
+    },
+    {
+      "id": 29,
+      "service_name": "Consulta Benefícios Governo",
+      "service_description": "Consulta benefícios governo",
+      "default_price": null,
+      "min_price": null,
+      "module_keys": [
+        "beneficios_governo"
+      ],
+      "includes_module_keys": [],
+      "is_eligible": true,
+      "is_discount": false,
+      "created_at": "2026-04-23T14:45:43.000Z",
+      "updated_at": "2026-04-23T14:45:43.000Z",
+      "invoices": null
+    },
+    {
+      "id": 30,
+      "service_name": "Consulta PEP Listas",
+      "service_description": "Consulta listas PEP",
+      "default_price": null,
+      "min_price": null,
+      "module_keys": [
+        "pep_listas"
+      ],
+      "includes_module_keys": [],
+      "is_eligible": true,
+      "is_discount": false,
+      "created_at": "2026-04-23T14:45:43.000Z",
+      "updated_at": "2026-04-23T14:45:43.000Z",
+      "invoices": null
+    },
+    {
+      "id": 31,
+      "service_name": "Consulta Impedidos Apostar",
+      "service_description": "Consulta impedidos de apostar",
+      "default_price": null,
+      "min_price": null,
+      "module_keys": [
+        "impedidos_apostar"
+      ],
+      "includes_module_keys": [],
+      "is_eligible": true,
+      "is_discount": false,
+      "created_at": "2026-04-23T14:45:43.000Z",
+      "updated_at": "2026-04-23T14:45:43.000Z",
+      "invoices": null
+    },
+    {
+      "id": 32,
+      "service_name": "Consulta Dados Financeiros",
+      "service_description": "Consulta dados financeiros",
+      "default_price": null,
+      "min_price": null,
+      "module_keys": [],
+      "includes_module_keys": [],
+      "is_eligible": true,
+      "is_discount": false,
+      "created_at": "2026-04-23T14:45:43.000Z",
+      "updated_at": "2026-04-23T14:45:43.000Z",
+      "invoices": null
+    },
+    {
+      "id": 33,
+      "service_name": "Consulta Online Betting",
+      "service_description": "Consulta online betting",
+      "default_price": null,
+      "min_price": null,
+      "module_keys": [],
+      "includes_module_keys": [],
+      "is_eligible": true,
+      "is_discount": false,
+      "created_at": "2026-04-23T14:45:43.000Z",
+      "updated_at": "2026-04-23T14:45:43.000Z",
+      "invoices": null
+    }
+  ],
+  "unknown_service_ids_in_invoices_itens": []
+}

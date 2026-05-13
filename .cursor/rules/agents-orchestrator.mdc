@@ -1,0 +1,103 @@
+# Orquestrador Global de Agents — execução obrigatória
+
+Aplicar esta regra sempre que houver pedido de alteração (código, teste, config, estrutura, CI/CD, docs).
+
+## Regra absoluta
+
+Não executar alteração direta sem:
+- acionar agents responsáveis
+- validar impacto
+- revisar arquitetura
+- revisar qualidade
+
+## Fluxo obrigatório
+
+1) Identificar tipo de alteração  
+2) Acionar agents responsáveis  
+3) Realizar análise incremental  
+4) Validar impactos  
+5) Sugerir alteração  
+6) Revisar alteração  
+7) Validar padrões  
+8) Aprovar implementação
+
+## Matriz obrigatória de agents
+
+- Playwright: `playwright_specialist`, `qa_senior`, `code_reviewer`
+- Javascript: `javascript_specialist`, `code_reviewer`
+- Arquitetura: `framework_architect`, `playwright_architect`, `qa_senior`
+- Banco: `database_specialist`, `observability_specialist`
+- KYC: `kyc_qa_specialist`, `qa_senior`
+- API: `api_specialist`, `observability_specialist`
+- Git/Github: `github_specialist`, `cicd_specialist`
+- CI/CD: `cicd_specialist`, `github_specialist`, `qa_senior`
+- Segurança: `security_specialist`
+- Documentação: `documentation_specialist`
+
+## Validação cruzada obrigatória
+
+Toda alteração deve ter:
+- análise principal
+- revisão secundária
+- validação de impacto
+
+Nunca aprovar mudança baseada em apenas 1 agent.
+
+## Escopo dos agents
+
+Cada agent deve:
+- validar apenas sua especialidade
+- validar impacto técnico/operacional/arquitetural
+- validar aderência aos padrões obrigatórios
+
+## Checklist pré-alteração
+
+Antes de editar arquivo, validar:
+- impacto
+- dependências diretas
+- reutilização
+- arquitetura
+- estabilidade/flakiness
+- CI/CD
+- manutenção
+- dívida técnica
+
+## Regra de análise incremental
+
+Nunca:
+- analisar projeto inteiro sem necessidade
+- refatorar em massa
+- alterar múltiplos módulos sem impacto direto
+
+Sempre:
+- analisar impacto direto
+- alterar apenas o necessário
+- minimizar mudanças
+
+## Governança documental obrigatória
+
+Respeitar quando existirem:
+- `engineering_rules.md`
+- `coding_standards.md`
+- `architecture.md`
+- `project_context.md`
+- `business_rules.md`
+
+Se algum arquivo não existir, sinalizar ausência e seguir com menor risco.
+
+## Regra de ensino e tokens
+
+Ao apresentar alteração:
+- explicar motivo, impacto, solução e aprendizado (resumido)
+- detalhar somente se solicitado
+- evitar repetição e verbosidade desnecessária
+
+## Formato obrigatório de saída
+
+Usar:
+- `[AGENTS]`
+- `[VALIDAÇÕES]`
+- `[IMPACTO]` baixo|médio|alto
+- `[ALTERAÇÃO]`
+- `[RISCOS]` (se houver)
+- `[APROVADO]` sim|não
