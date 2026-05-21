@@ -19,6 +19,7 @@ import * as baseDados from '../services/baseDados.js';
 // O único ponto reaproveitado é o gerarHash para iniciar o fluxo.
 
 const CPF_PADRAO = '23134061805';
+const CPF_SEM_CNH = '38307186838'
 /** Alinhado ao teto `DB_SAFE_SELECT_MAX` (services/dbSelectLimits.js); valores maiores são ignorados no serviço. */
 const LIMITE_CONSULTA = 20;
 const MAX_TENTATIVAS_EXTRACAO = 6;
@@ -195,6 +196,18 @@ const CENARIOS_CONSULTA = [
       'pep_listas',
       'impedidos_apostar',
       'dados_financeiros',
+    ],
+  },
+  {
+    id: 'CA018',
+    nome: 'Consulta Full + CNH (sem CNH na base)',
+    tipo: 'combinacao',
+    cpfKeyBaseDados: 'CA020',
+    consultType: 'full+consult_cnh',
+    modulosEsperados: [
+      MODULO_OBRIGATORIO,
+      'full',
+      'consult_cnh',
     ],
   },
 ];
@@ -483,6 +496,154 @@ const CENARIOS_VALIDACAO_DASH = [
     modulosEsperados: [MODULO_OBRIGATORIO, 'beneficios_governo', 'pep_listas'],
     biometriaId: 'CA001_APROVADO',
     esperaCache: true,
+  },
+];
+
+const CENARIOS_CNH = [
+  {
+    id: 'CNH001',
+    nome: 'CNH Positivo - consult_cnh com CPF que tem CNH',
+    cpf: '23134061805',
+    consultType: 'consult_cnh+dados_cadastrais',
+    esperaCNH: true,
+  },
+  {
+    id: 'CNH002',
+    nome: 'CNH Negativo - consult_cnh com CPF sem CNH na base',
+    cpf: '06683872201',
+    consultType: 'consult_cnh+dados_cadastrais',
+    esperaCNH: false,
+  },
+  {
+    id: 'CNH003',
+    nome: 'CNH Positivo - full+consult_cnh com CPF que tem CNH',
+    cpf: '23134061805',
+    consultType: 'full+consult_cnh',
+    esperaCNH: true,
+  },
+  {
+    id: 'CNH004',
+    nome: 'CNH Positivo - CNH + Financeiro',
+    cpf: '23134061805',
+    consultType: 'consult_cnh+dados_financeiros+dados_cadastrais',
+    esperaCNH: true,
+  },
+  {
+    id: 'CNH005',
+    nome: 'CNH Positivo - CNH + Telefone',
+    cpf: '23134061805',
+    consultType: 'consult_cnh+telefone+dados_cadastrais',
+    esperaCNH: true,
+  },
+  {
+    id: 'CNH006',
+    nome: 'CNH Positivo - CNH + Telefone + Email',
+    cpf: '23134061805',
+    consultType: 'consult_cnh+telefone+email+dados_cadastrais',
+    esperaCNH: true,
+  },
+  {
+    id: 'CNH007',
+    nome: 'CNH Negativo - full+consult_cnh com CPF sem CNH (CA003)',
+    cpf: '14749091910',
+    consultType: 'full+consult_cnh',
+    esperaCNH: false,
+  },
+  {
+    id: 'CNH008',
+    nome: 'CNH Negativo - full+consult_cnh com CPF sem CNH (CA005)',
+    cpf: '96477776472',
+    consultType: 'full+consult_cnh',
+    esperaCNH: false,
+  },
+  {
+    id: 'CNH009',
+    nome: 'CNH Negativo - full+consult_cnh com CPF sem CNH (CA008)',
+    cpf: '77593626253',
+    consultType: 'full+consult_cnh',
+    esperaCNH: false,
+  },
+  {
+    id: 'CNH010',
+    nome: 'CNH Negativo - full+consult_cnh com CPF sem CNH (CA010)',
+    cpf: '10589331914',
+    consultType: 'full+consult_cnh',
+    esperaCNH: false,
+  },
+];
+
+const CENARIOS_FINANCEIRO = [
+  {
+    id: 'FI001',
+    nome: 'Financeiro - CPF CA001',
+    cpf: '23134061805',
+    consultType: 'dados_financeiros+dados_cadastrais',
+  },
+  {
+    id: 'FI002',
+    nome: 'Financeiro - CPF CA008 (Beneficiário)',
+    cpf: '77593626253',
+    consultType: 'dados_financeiros+dados_cadastrais',
+  },
+  {
+    id: 'FI003',
+    nome: 'Financeiro - CPF CA010 (Normal)',
+    cpf: '10589331914',
+    consultType: 'dados_financeiros+dados_cadastrais',
+  },
+  {
+    id: 'FI004',
+    nome: 'Financeiro - CPF CA020 (Full Financeiro)',
+    cpf: '06683872201',
+    consultType: 'dados_financeiros+dados_cadastrais',
+  },
+];
+
+const CENARIOS_PERFIS_CPF = [
+  {
+    id: 'PS001',
+    nome: 'Perfil CPF - CA001 (Regular)',
+    cpf: '23134061805',
+    consultType: 'dados_financeiros+dados_cadastrais',
+  },
+  {
+    id: 'PS002',
+    nome: 'Perfil CPF - CA006 (PEP)',
+    cpf: '02819176470',
+    consultType: 'dados_financeiros+dados_cadastrais',
+  },
+  {
+    id: 'PS003',
+    nome: 'Perfil CPF - CA007 (Óbito)',
+    cpf: '87960575134',
+    consultType: 'dados_financeiros+dados_cadastrais',
+  },
+  {
+    id: 'PS004',
+    nome: 'Perfil CPF - CA009 (Menor Idade)',
+    cpf: '22024494773',
+    consultType: 'dados_financeiros+dados_cadastrais',
+  },
+];
+
+const CENARIOS_VEICULO = [
+  {
+    id: 'VCL001',
+    nome: 'Veículo Real - ARN3I17',
+    placa: 'ARN3I17',
+    esperaSucesso: true,
+  },
+  {
+    id: 'VCL002',
+    nome: 'Veículo - Placa Formato Inválido',
+    placa: 'ABC',
+    esperaSucesso: false,
+  },
+  {
+    id: 'VCL003',
+    nome: 'Veículo - Placa Inexistente',
+    placa: 'ZZZ0000',
+    esperaSucesso: false,
   },
 ];
 
@@ -1235,6 +1396,33 @@ async function limparBaseDosCenarios(cenarios = []) {
   }
 }
 
+async function consultarDocumento(request, { cpf, consultType, clientAuth }) {
+  const apiUser = process.env.API_USER || 'Homlop0kcQU9sqmSbjvubsI9jchkB0Yg';
+  const apiPass = process.env.API_PASS || 'Q1pZOxntMCfAzXn0UKIH4tKIMkVp2pxt';
+  const authUser = String(clientAuth?.apiUser ?? apiUser).trim();
+  const authPass = String(clientAuth?.apiPass ?? apiPass).trim();
+  const authHeader = `Basic ${Buffer.from(`${authUser}:${authPass}`).toString('base64')}`;
+  const url = `https://shielid-staging.com/api/consultDocument?document=${encodeURIComponent(cpf)}`;
+  const response = await request.post(url, {
+    headers: { Authorization: authHeader },
+    data: { consultType },
+  });
+  return { status: response.status(), body: await response.json(), cpf, consultType };
+}
+
+async function consultarVeiculo(request, { placa, clientAuth }) {
+  const apiUser = process.env.API_USER || 'Homlop0kcQU9sqmSbjvubsI9jchkB0Yg';
+  const apiPass = process.env.API_PASS || 'Q1pZOxntMCfAzXn0UKIH4tKIMkVp2pxt';
+  const authUser = String(clientAuth?.apiUser ?? apiUser).trim();
+  const authPass = String(clientAuth?.apiPass ?? apiPass).trim();
+  const authHeader = `Basic ${Buffer.from(`${authUser}:${authPass}`).toString('base64')}`;
+  const url = `https://shielid-staging.com/api/consultVehicle?plate=${encodeURIComponent(placa)}`;
+  const response = await request.post(url, {
+    headers: { Authorization: authHeader },
+  });
+  return { status: response.status(), body: await response.json(), placa };
+}
+
 test.describe('Validar Consultas — Estrutura Base QA', () => {
   test.describe.configure({ mode: 'serial' });
 
@@ -1253,232 +1441,336 @@ test.describe('Validar Consultas — Estrutura Base QA', () => {
   });
 
   for (const perfilCliente of PERFIS_CLIENTE_EXECUCAO) {
-    test.describe(`Cliente - ${perfilCliente.nome}`, () => {
+    test.describe(perfilCliente.nome, () => {
       test.skip(!perfilCliente.enabled, perfilCliente.skipReason ?? 'Cliente desabilitado');
+      const P = perfilCliente;
+      const cpf = (c) => resolverCpfPorCenario(c);
+      const mods = (c) => resolverModulosPorCenario(c);
+      const nome = (id, n) => montarNomeCenarioPorCliente(`${id} - ${n}`, P);
+      const auth = P.clientAuth;
 
-      test.describe('Casos - Fornecedores Externos', () => {
-        // Regra solicitada: limpar base apenas para cenários de fornecedores externos.
-        test.beforeAll(async () => {
-          await limparBaseDosCenarios(CENARIOS_CONSULTA);
-        });
-
-        for (const cenario of CENARIOS_CONSULTA) {
-          const nomeExibicaoBase = cenario.id === 'CA001' ? cenario.nome : `${cenario.id} - ${cenario.nome}`;
-          const nomeExibicao = montarNomeCenarioPorCliente(nomeExibicaoBase, perfilCliente);
-          test(nomeExibicao, async ({ request }) => {
-            const modulePricesAfterUpdate = await aplicarPerfilPrecoDoCenario(cenario);
-            const cpfCenario = resolverCpfPorCenario(cenario);
-            const modulosCenario = resolverModulosPorCenario(cenario);
-            const resultado = await executarFluxoConsultaPorHash({
-              request,
-              nomeCenario: nomeExibicao,
-              cenarioId: cenario.id,
-              cenarioTipo: cenario.tipo,
-              clienteId: perfilCliente.id,
-              clienteNome: perfilCliente.nome,
-              clientAuth: perfilCliente.clientAuth,
-              cpf: cpfCenario,
-              consultType: cenario.consultType,
-              modulos: modulosCenario,
-            });
-
-            registrarResumoCenario({
-              cenarioId: cenario.id,
-              nomeCenario: nomeExibicao,
-              consultType: cenario.consultType,
-              resultado,
-              extras: {
-                cliente_id: perfilCliente.id,
-                cliente_nome: perfilCliente.nome,
-                perfil_preco_aplicado: cenario.perfilPreco ?? null,
-                module_prices_atualizado: Array.isArray(modulePricesAfterUpdate),
-              },
-            });
-
-            expect(resultado.hash).toBeTruthy();
-            expect(Array.isArray(resultado.documentConsults?.rows)).toBeTruthy();
-            expect(resultado.documentConsults?.rowCount ?? 0).toBeGreaterThan(0);
-            expect(resultado.fallbackValido).toBeTruthy();
-            if (PRICE_VARIATION_SCENARIO_IDS.has(cenario.id)) {
-              expect(Array.isArray(modulePricesAfterUpdate)).toBeTruthy();
-              expect(modulePricesAfterUpdate?.length ?? 0).toBeGreaterThan(0);
-            }
-            expect(Array.isArray(resultado.logsGeral?.rows)).toBeTruthy();
-            expect(Array.isArray(resultado.invoicesItens?.rows)).toBeTruthy();
-            expect(Array.isArray(resultado.services?.rows)).toBeTruthy();
-          });
-        }
+      // ── 1) Fornecedores Externos ──
+      test.beforeAll(async () => {
+        await limparBaseDosCenarios(CENARIOS_CONSULTA);
       });
 
-      test.describe('Casos - Cache', () => {
-        // Regra solicitada: não limpar base para cenários de cache.
-        for (const cenarioReplay of CENARIOS_CACHE_REPLAY) {
-          const nomeReplay = montarNomeCenarioPorCliente(cenarioReplay.nome, perfilCliente);
-          test(nomeReplay, async ({ request }) => {
-            const cpfCenario = resolverCpfPorCenario(cenarioReplay);
-            const modulosCenario = resolverModulosPorCenario(cenarioReplay);
-            const resultado = await executarFluxoConsultaPorHash({
-              request,
-              nomeCenario: nomeReplay,
-              cenarioId: cenarioReplay.id,
-              cenarioTipo: cenarioReplay.tipo,
-              clienteId: perfilCliente.id,
-              clienteNome: perfilCliente.nome,
-              clientAuth: perfilCliente.clientAuth,
-              cpf: cpfCenario,
-              consultType: cenarioReplay.consultType,
-              modulos: modulosCenario,
-            });
-
-            const cacheDetectado = (resultado.documentConsults?.rows ?? []).some(
-              (row) => String(row?.source ?? '').toLowerCase() === 'cache'
-            );
-            registrarResumoCenario({
-              cenarioId: cenarioReplay.id,
-              nomeCenario: nomeReplay,
-              consultType: cenarioReplay.consultType,
-              resultado,
-              extras: {
-                cliente_id: perfilCliente.id,
-                cliente_nome: perfilCliente.nome,
-                cache_replay: true,
-                cache_detectado: cacheDetectado,
+      for (const c of CENARIOS_CONSULTA) {
+        test(`${c.id} - ${c.nome}`, async ({ request }) => {
+          const n = c.id === 'CA001' ? nome('', c.nome) : nome(c.id, c.nome);
+          const prices = await aplicarPerfilPrecoDoCenario(c);
+          const r = await executarFluxoConsultaPorHash({ request, nomeCenario: n, cenarioId: c.id, cenarioTipo: c.tipo, clienteId: P.id, clienteNome: P.nome, clientAuth: auth, cpf: cpf(c), consultType: c.consultType, modulos: mods(c) });
+          registrarResumoCenario({ cenarioId: c.id, nomeCenario: n, consultType: c.consultType, resultado: r, extras: { cliente_id: P.id, cliente_nome: P.nome, perfil_preco_aplicado: c.perfilPreco ?? null, module_prices_atualizado: Array.isArray(prices) } });
+          expect.soft(r.hash).toBeTruthy();
+          expect.soft(Array.isArray(r.documentConsults?.rows)).toBeTruthy();
+          expect.soft(r.documentConsults?.rowCount ?? 0).toBeGreaterThan(0);
+          expect.soft(r.fallbackValido).toBeTruthy();
+          if (PRICE_VARIATION_SCENARIO_IDS.has(c.id)) {
+            expect.soft(Array.isArray(prices)).toBeTruthy();
+            expect.soft(prices?.length ?? 0).toBeGreaterThan(0);
+          }
+          expect.soft(Array.isArray(r.logsGeral?.rows)).toBeTruthy();
+          expect.soft(Array.isArray(r.invoicesItens?.rows)).toBeTruthy();
+          expect.soft(Array.isArray(r.services?.rows)).toBeTruthy();
+          appendApiResultBlock({
+            nomeCenario: n, cpf: cpf(c),
+            retornoResponse: {
+              session_status: { success: true, status: 'approved', hash: r.hash },
+              raw_response: {
+                resumo_consulta: {
+                  cenario_id: c.id, cenario_nome: c.nome, cenario_tipo: c.tipo,
+                  consult_type: c.consultType, cpf: cpf(c),
+                  modulos_configurados: mods(c),
+                  document_consults_row_count: r.documentConsults?.rowCount ?? 0,
+                  document_consults_extracao_ok: true,
+                  provider_esperado_menor_preco: r.comparativoPrecos?.provider_esperado_menor_preco ?? null,
+                  provider_observado: r.providerObservado ?? null,
+                  fallback_validado: r.fallbackValido,
+                  comparativo_por_modulo: r.comparativoPrecos ? [] : [],
+                },
               },
-            });
-
-            expect(resultado.hash).toBeTruthy();
-            expect(Array.isArray(resultado.documentConsults?.rows)).toBeTruthy();
-            expect(resultado.documentConsults?.rowCount ?? 0).toBeGreaterThan(0);
-            expect(resultado.fallbackValido).toBeTruthy();
+            },
           });
-        }
+        });
+      }
+
+      // ── 2) Cache ──
+      for (const c of CENARIOS_CACHE_REPLAY) {
+        test(`${c.id} - ${c.nome}`, async ({ request }) => {
+          const n = nome(c.id, c.nome);
+          const r = await executarFluxoConsultaPorHash({ request, nomeCenario: n, cenarioId: c.id, cenarioTipo: c.tipo, clienteId: P.id, clienteNome: P.nome, clientAuth: auth, cpf: cpf(c), consultType: c.consultType, modulos: mods(c) });
+          const cacheDetectado = (r.documentConsults?.rows ?? []).some((row) => String(row?.source ?? '').toLowerCase() === 'cache');
+          registrarResumoCenario({ cenarioId: c.id, nomeCenario: n, consultType: c.consultType, resultado: r, extras: { cliente_id: P.id, cliente_nome: P.nome, cache_replay: true, cache_detectado: cacheDetectado } });
+          expect.soft(r.hash).toBeTruthy();
+          expect.soft(Array.isArray(r.documentConsults?.rows)).toBeTruthy();
+          expect.soft(r.documentConsults?.rowCount ?? 0).toBeGreaterThan(0);
+          expect.soft(r.fallbackValido).toBeTruthy();
+          appendApiResultBlock({
+            nomeCenario: n, cpf: cpf(c),
+            retornoResponse: {
+              session_status: { success: true, status: 'approved', hash: r.hash },
+              raw_response: {
+                resumo_consulta: {
+                  cenario_id: c.id, cenario_nome: c.nome, cenario_tipo: c.tipo,
+                  consult_type: c.consultType, cpf: cpf(c),
+                  modulos_configurados: mods(c),
+                  document_consults_row_count: r.documentConsults?.rowCount ?? 0,
+                  document_consults_extracao_ok: true,
+                  provider_esperado_menor_preco: r.comparativoPrecos?.provider_esperado_menor_preco ?? null,
+                  provider_observado: r.providerObservado ?? null,
+                  fallback_validado: r.fallbackValido,
+                  comparativo_por_modulo: [],
+                  cache_detectado: cacheDetectado,
+                },
+              },
+            },
+          });
+        });
+      }
+
+      // ── 3) Biometria ──
+      test.beforeAll(async () => {
+        await limparBaseDosCenarios(CENARIOS_GERARHASH_BIOMETRIA);
       });
 
-      test.describe('Casos - Biometria', () => {
-        // Regra solicitada: limpar base para cenários NB (biometria).
-        test.beforeAll(async () => {
-          await limparBaseDosCenarios(CENARIOS_GERARHASH_BIOMETRIA);
-        });
-
-        for (const cenarioBio of CENARIOS_GERARHASH_BIOMETRIA) {
-          const nomeCenarioBase = `${cenarioBio.id} - ${cenarioBio.nome}`;
-          const nomeCenario = montarNomeCenarioPorCliente(nomeCenarioBase, perfilCliente);
-          test(nomeCenario, async ({ request }) => {
-            const cpfCenario = resolverCpfPorCenario(cenarioBio);
-            const modulosCenario = resolverModulosPorCenario(cenarioBio);
-            const resultado = await executarFluxoConsultaPorHash({
-              request,
-              nomeCenario,
-              cenarioId: cenarioBio.id,
-              cenarioTipo: cenarioBio.tipo,
-              clienteId: perfilCliente.id,
-              clienteNome: perfilCliente.nome,
-              clientAuth: perfilCliente.clientAuth,
-              cpf: cpfCenario,
-              consultType: cenarioBio.consultType,
-              modulos: modulosCenario,
-              biometriaId: cenarioBio.biometriaId,
-              usarBiometria: true,
-              executarPollingBiometria: true,
-            });
-
-            const cacheDetectado = (resultado.documentConsults?.rows ?? []).some(
-              (row) => String(row?.source ?? '').toLowerCase() === 'cache'
-            );
-            registrarResumoCenario({
-              cenarioId: cenarioBio.id,
-              nomeCenario,
-              consultType: cenarioBio.consultType,
-              resultado,
-              extras: {
-                cliente_id: perfilCliente.id,
-                cliente_nome: perfilCliente.nome,
-                fluxo_biometria: true,
-                cache_esperado: cenarioBio.esperaCache === true,
-                cache_detectado: cacheDetectado,
+      for (const c of CENARIOS_GERARHASH_BIOMETRIA) {
+        test(`${c.id} - ${c.nome}`, async ({ request }) => {
+          const n = nome(c.id, c.nome);
+          const r = await executarFluxoConsultaPorHash({ request, nomeCenario: n, cenarioId: c.id, cenarioTipo: c.tipo, clienteId: P.id, clienteNome: P.nome, clientAuth: auth, cpf: cpf(c), consultType: c.consultType, modulos: mods(c), biometriaId: c.biometriaId, usarBiometria: true, executarPollingBiometria: true });
+          const cacheDetectado = (r.documentConsults?.rows ?? []).some((row) => String(row?.source ?? '').toLowerCase() === 'cache');
+          registrarResumoCenario({ cenarioId: c.id, nomeCenario: n, consultType: c.consultType, resultado: r, extras: { cliente_id: P.id, cliente_nome: P.nome, fluxo_biometria: true, cache_esperado: c.esperaCache === true, cache_detectado: cacheDetectado } });
+          expect.soft(r.hash).toBeTruthy();
+          expect.soft(Array.isArray(r.documentConsults?.rows)).toBeTruthy();
+          expect.soft(r.documentConsults?.rowCount ?? 0).toBeGreaterThan(0);
+          expect.soft(r.fallbackValido).toBeTruthy();
+          if (c.esperaCache) expect.soft(cacheDetectado).toBeTruthy();
+          else expect.soft(cacheDetectado).toBeFalsy();
+          appendApiResultBlock({
+            nomeCenario: n, cpf: cpf(c),
+            retornoResponse: {
+              session_status: { success: true, status: 'approved', hash: r.hash },
+              raw_response: {
+                resumo_consulta: {
+                  cenario_id: c.id, cenario_nome: c.nome, cenario_tipo: c.tipo,
+                  consult_type: c.consultType, cpf: cpf(c),
+                  modulos_configurados: mods(c),
+                  document_consults_row_count: r.documentConsults?.rowCount ?? 0,
+                  document_consults_extracao_ok: true,
+                  provider_esperado_menor_preco: r.comparativoPrecos?.provider_esperado_menor_preco ?? null,
+                  provider_observado: r.providerObservado ?? null,
+                  fallback_validado: r.fallbackValido,
+                  comparativo_por_modulo: [],
+                  biometria_id: c.biometriaId,
+                  cache_esperado: c.esperaCache,
+                  cache_detectado: cacheDetectado,
+                },
               },
-            });
-
-            expect(resultado.hash).toBeTruthy();
-            expect(Array.isArray(resultado.documentConsults?.rows)).toBeTruthy();
-            expect(resultado.documentConsults?.rowCount ?? 0).toBeGreaterThan(0);
-            expect(resultado.fallbackValido).toBeTruthy();
-            if (cenarioBio.esperaCache) {
-              expect(cacheDetectado).toBeTruthy();
-            } else {
-              expect(cacheDetectado).toBeFalsy();
-            }
+            },
           });
-        }
+        });
+      }
+
+      // ── 4) CNH ──
+      test.beforeAll(async () => {
+        await limparBaseDosCenarios(CENARIOS_CNH);
       });
 
-      test.describe('Casos - ValidaçãoDash', () => {
-        test.beforeAll(async () => {
-          // Regra solicitada: limpar base no primeiro cenário de consulta deste bloco.
-          await limparBaseDosCenarios(CENARIOS_VALIDACAO_DASH);
-        });
-
-        for (const cenarioDash of CENARIOS_VALIDACAO_DASH) {
-          const nomeCenario = montarNomeCenarioPorCliente(cenarioDash.nome, perfilCliente);
-          test(nomeCenario, async ({ request }) => {
-            const cpfCenario = resolverCpfPorCenario(cenarioDash);
-            const modulosCenario = resolverModulosPorCenario(cenarioDash);
-            const resultado = await executarFluxoConsultaPorHash({
-              request,
-              nomeCenario,
-              cenarioId: cenarioDash.id,
-              cenarioTipo: cenarioDash.tipo,
-              clienteId: perfilCliente.id,
-              clienteNome: perfilCliente.nome,
-              clientAuth: perfilCliente.clientAuth,
-              cpf: cpfCenario,
-              consultType: cenarioDash.consultType,
-              modulos: modulosCenario,
-              biometriaId: cenarioDash.biometriaId,
-              usarBiometria: true,
-              executarPollingBiometria: false,
-              omitirStatusEsperadoNoLog: true,
-            });
-
-            const cacheDetectado = (resultado.documentConsults?.rows ?? []).some(
-              (row) => String(row?.source ?? '').toLowerCase() === 'cache'
-            );
-            registrarResumoCenario({
-              cenarioId: cenarioDash.id,
-              nomeCenario,
-              consultType: cenarioDash.consultType,
-              resultado,
-              extras: {
-                cliente_id: perfilCliente.id,
-                cliente_nome: perfilCliente.nome,
-                fluxo_validacao_dash: true,
-                cache_esperado: cenarioDash.esperaCache === true,
-                cache_detectado: cacheDetectado,
+      for (const c of CENARIOS_CNH) {
+        test(`${c.id} - ${c.nome}`, async ({ request }) => {
+          const n = nome(c.id, c.nome);
+          const r = await consultarDocumento(request, { cpf: c.cpf, consultType: c.consultType, clientAuth: auth });
+          const hasCnh = !!r.body?.data?.consultCNH?.cnh?.number;
+          const cnhOk = c.esperaCNH ? hasCnh : !hasCnh;
+          if (c.esperaCNH) {
+            expect.soft(r.body?.success).toBe(true);
+            expect.soft(r.body?.data?.consultCNH?.cnh?.number).toBeTruthy();
+          } else {
+            expect.soft(r.body?.data?.consultCNH?.cnh?.number).toBeFalsy();
+          }
+          appendApiResultBlock({
+            nomeCenario: n, cpf: c.cpf,
+            retornoResponse: {
+              session_status: { success: r.body?.success ?? false, status: r.body?.success ? 'approved' : 'rejected', status_message: `CNH: ${hasCnh ? 'encontrada' : 'não encontrada'}` },
+              raw_response: {
+                resumo_consulta: {
+                  cenario_id: c.id, cenario_nome: c.nome, cenario_tipo: 'cnh',
+                  consult_type: c.consultType, cpf: c.cpf,
+                  modulos_configurados: parseConsultTypeToModules(c.consultType),
+                  document_consults_row_count: 0,
+                  document_consults_extracao_ok: false,
+                  provider_esperado_menor_preco: null,
+                  provider_observado: '-',
+                  fallback_validado: cnhOk,
+                  comparativo_por_modulo: [],
+                  cnh_encontrada: hasCnh,
+                  cnh_numero: r.body?.data?.consultCNH?.cnh?.number ?? null,
+                },
               },
-            });
-            // ValidaçãoDash: coleta log/resumo para dash; sem asserts finais nem afterEach fixo
-            // para não alongar a suíte nem falhar outros cenários por provider/DB/cache.
+            },
           });
-        }
+        });
+      }
+
+      // ── 5) Financeiro ─
+      test.beforeAll(async () => {
+        await limparBaseDosCenarios(CENARIOS_FINANCEIRO);
+      });
+
+      for (const c of CENARIOS_FINANCEIRO) {
+        test(`${c.id} - ${c.nome}`, async ({ request }) => {
+          const n = nome(c.id, c.nome);
+          const r = await consultarDocumento(request, { cpf: c.cpf, consultType: c.consultType, clientAuth: auth });
+          const hasAssets = !!r.body?.data?.financialData?.totalAssets;
+          const hasIncome = !!r.body?.data?.financialData?.incomeEstimates;
+          const finOk = r.body?.success && hasAssets && hasIncome;
+          expect.soft(r.body?.success).toBe(true);
+          expect.soft(r.body?.data?.financialData?.totalAssets).toBeTruthy();
+          expect.soft(r.body?.data?.financialData?.incomeEstimates).toBeTruthy();
+          appendApiResultBlock({
+            nomeCenario: n, cpf: c.cpf,
+            retornoResponse: {
+              session_status: { success: r.body?.success ?? false, status: r.body?.success ? 'approved' : 'rejected', status_message: `Financeiro: assets=${hasAssets}, income=${hasIncome}` },
+              raw_response: {
+                resumo_consulta: {
+                  cenario_id: c.id, cenario_nome: c.nome, cenario_tipo: 'financeiro',
+                  consult_type: c.consultType, cpf: c.cpf,
+                  modulos_configurados: parseConsultTypeToModules(c.consultType),
+                  document_consults_row_count: 0,
+                  document_consults_extracao_ok: false,
+                  provider_esperado_menor_preco: null,
+                  provider_observado: '-',
+                  fallback_validado: finOk,
+                  comparativo_por_modulo: [],
+                  financeiro_assets: hasAssets,
+                  financeiro_income: hasIncome,
+                },
+              },
+            },
+          });
+        });
+      }
+
+      // ── 6) Perfis CPF ──
+      test.beforeAll(async () => {
+        await limparBaseDosCenarios(CENARIOS_PERFIS_CPF);
+      });
+
+      for (const c of CENARIOS_PERFIS_CPF) {
+        test(`${c.id} - ${c.nome}`, async ({ request }) => {
+          const n = nome(c.id, c.nome);
+          const r = await consultarDocumento(request, { cpf: c.cpf, consultType: c.consultType, clientAuth: auth });
+          const cpfStatus = r.body?.data?.cpfStatus ?? {};
+          const perfilOk = r.body?.success && cpfStatus?.name && cpfStatus?.status && cpfStatus?.age;
+          expect.soft(r.body?.success).toBe(true);
+          expect.soft(r.body?.data?.cpfStatus?.name).toBeTruthy();
+          expect.soft(r.body?.data?.cpfStatus?.status).toBeTruthy();
+          expect.soft(r.body?.data?.cpfStatus?.age).toBeTruthy();
+          appendApiResultBlock({
+            nomeCenario: n, cpf: c.cpf,
+            retornoResponse: {
+              session_status: { success: r.body?.success ?? false, status: r.body?.success ? 'approved' : 'rejected', status_message: `Perfil: ${cpfStatus?.name ?? '-'} (${cpfStatus?.status ?? '-'})` },
+              raw_response: {
+                resumo_consulta: {
+                  cenario_id: c.id, cenario_nome: c.nome, cenario_tipo: 'perfil_cpf',
+                  consult_type: c.consultType, cpf: c.cpf,
+                  modulos_configurados: parseConsultTypeToModules(c.consultType),
+                  document_consults_row_count: 0,
+                  document_consults_extracao_ok: false,
+                  provider_esperado_menor_preco: null,
+                  provider_observado: '-',
+                  fallback_validado: perfilOk,
+                  comparativo_por_modulo: [],
+                  cpf_status_name: cpfStatus?.name ?? null,
+                  cpf_status_status: cpfStatus?.status ?? null,
+                  cpf_status_age: cpfStatus?.age ?? null,
+                },
+              },
+            },
+          });
+        });
+      }
+
+      // ── 7) Veículo ─
+      for (const c of CENARIOS_VEICULO) {
+        test(`${c.id} - ${c.nome}`, async ({ request }) => {
+          const n = nome(c.id, c.nome);
+          const r = await consultarVeiculo(request, { placa: c.placa, clientAuth: auth });
+          const sucesso = r.body?.success === true;
+          const veiculoOk = c.esperaSucesso ? (sucesso && r.body?.data?.placa === c.placa) : !sucesso;
+          if (c.esperaSucesso) {
+            expect.soft(r.body?.success).toBe(true);
+            expect.soft(r.body?.data?.placa).toBe(c.placa);
+          } else {
+            expect.soft(r.body?.success).toBe(false);
+          }
+          appendApiResultBlock({
+            nomeCenario: n, cpf: '',
+            retornoResponse: {
+              session_status: { success: sucesso, status: sucesso ? 'approved' : 'rejected', status_message: `Veículo ${c.placa}: ${sucesso ? 'encontrado' : 'não encontrado/inválido'}` },
+              raw_response: {
+                resumo_consulta: {
+                  cenario_id: c.id, cenario_nome: c.nome, cenario_tipo: 'veiculo',
+                  consult_type: 'consult_vehicle', cpf: '',
+                  placa: c.placa,
+                  modulos_configurados: ['consult_vehicle'],
+                  document_consults_row_count: 0,
+                  document_consults_extracao_ok: false,
+                  provider_esperado_menor_preco: null,
+                  provider_observado: '-',
+                  fallback_validado: veiculoOk,
+                  comparativo_por_modulo: [],
+                  placa_retornada: r.body?.data?.placa ?? null,
+                },
+              },
+            },
+          });
+        });
+      }
+
+      // ── 8) ValidaçãoDash ──
+      test.beforeAll(async () => {
+        await limparBaseDosCenarios(CENARIOS_VALIDACAO_DASH);
+      });
+
+      for (const c of CENARIOS_VALIDACAO_DASH) {
+        test(`${c.id} - ${c.nome}`, async ({ request }) => {
+          const n = montarNomeCenarioPorCliente(c.nome, P);
+          const r = await executarFluxoConsultaPorHash({ request, nomeCenario: n, cenarioId: c.id, cenarioTipo: c.tipo, clienteId: P.id, clienteNome: P.nome, clientAuth: auth, cpf: cpf(c), consultType: c.consultType, modulos: mods(c), biometriaId: c.biometriaId, usarBiometria: true, executarPollingBiometria: false, omitirStatusEsperadoNoLog: true });
+          const cacheDetectado = (r.documentConsults?.rows ?? []).some((row) => String(row?.source ?? '').toLowerCase() === 'cache');
+          registrarResumoCenario({ cenarioId: c.id, nomeCenario: n, consultType: c.consultType, resultado: r, extras: { cliente_id: P.id, cliente_nome: P.nome, fluxo_validacao_dash: true, cache_esperado: c.esperaCache === true, cache_detectado: cacheDetectado } });
+          appendApiResultBlock({
+            nomeCenario: n, cpf: cpf(c),
+            retornoResponse: {
+              session_status: { success: true, status: 'approved', hash: r.hash },
+              raw_response: {
+                resumo_consulta: {
+                  cenario_id: c.id, cenario_nome: c.nome, cenario_tipo: c.tipo,
+                  consult_type: c.consultType, cpf: cpf(c),
+                  modulos_configurados: mods(c),
+                  document_consults_row_count: r.documentConsults?.rowCount ?? 0,
+                  document_consults_extracao_ok: true,
+                  provider_esperado_menor_preco: r.comparativoPrecos?.provider_esperado_menor_preco ?? null,
+                  provider_observado: r.providerObservado ?? null,
+                  fallback_validado: r.fallbackValido,
+                  comparativo_por_modulo: [],
+                  cache_detectado: cacheDetectado,
+                },
+              },
+            },
+          });
+        });
+      }
+
+      // ── 9) Resumo Final ──
+      test('RESUMO FINAL', async () => {
+        appendApiResultBlock({
+          nomeCenario: `RESUMO FINAL - ${perfilCliente.nome}`,
+          cpf: '',
+          retornoResponse: {
+            session_status: { success: true, hash: 'resumo-precos', status: 'approved', status_message: 'Resumo comparativo de menor preço por cenário' },
+            raw_response: { resumo_comparativo_por_cenario: RESUMO_PRECOS_CENARIOS },
+          },
+        });
       });
     });
   }
-
-  test.afterAll(async () => {
-    appendApiResultBlock({
-      nomeCenario: 'RESUMO FINAL - Menor Preco x Provider Observado',
-      cpf: '',
-      retornoResponse: {
-        session_status: {
-          success: true,
-          hash: 'resumo-precos',
-          status: 'approved',
-          status_message: 'Resumo comparativo de menor preço por cenário',
-        },
-        raw_response: {
-          resumo_comparativo_por_cenario: RESUMO_PRECOS_CENARIOS,
-        },
-      },
-    });
-  });
 });

@@ -126,10 +126,30 @@ function buildDetailRows(sessions) {
       continue;
     }
 
-    const modules = parseModulesFromConsultType(resumo?.consult_type ?? '');
+    const modules = Array.isArray(resumo?.modulos_configurados) && resumo.modulos_configurados.length > 0
+      ? resumo.modulos_configurados
+      : parseModulesFromConsultType(resumo?.consult_type ?? '');
     const consultado = providerGlobal || '-';
     const foiCache = consultado === 'cache';
+    const cenarioTipo = String(resumo?.cenario_tipo ?? '').toLowerCase();
+
     for (const modulo of modules) {
+      const extraInfo = [];
+      if (cenarioTipo === 'cnh') {
+        if (resumo?.cnh_encontrada) extraInfo.push(`CNH: ${resumo.cnh_numero ?? 'encontrada'}`);
+        else extraInfo.push('CNH: não encontrada');
+      }
+      if (cenarioTipo === 'financeiro') {
+        if (resumo?.financeiro_assets) extraInfo.push('assets: sim');
+        if (resumo?.financeiro_income) extraInfo.push('income: sim');
+      }
+      if (cenarioTipo === 'perfil_cpf') {
+        if (resumo?.cpf_status_name) extraInfo.push(`status: ${resumo.cpf_status_name}`);
+      }
+      if (cenarioTipo === 'veiculo') {
+        if (resumo?.placa_retornada) extraInfo.push(`placa: ${resumo.placa_retornada}`);
+      }
+
       rows.push({
         cenario,
         modulo,
@@ -138,12 +158,16 @@ function buildDetailRows(sessions) {
         esperado: String(resumo?.provider_esperado_menor_preco ?? '-').toLowerCase(),
         consultado,
         foiCache: foiCache ? 'SIM' : 'NAO',
-        status: foiCache ? 'CACHE' : fallbackValidado ? 'FALLBACK_OK' : 'NOK',
+        status: foiCache ? 'CACHE' : fallbackValidado ? (['cnh', 'veiculo', 'financeiro', 'perfil_cpf'].includes(cenarioTipo) ? 'OK' : 'FALLBACK_OK') : 'NOK',
         motivoFallback: foiCache
           ? 'Consulta atendida via cache (source=cache).'
           : fallbackValidado
-            ? 'Fornecedor esperado não utilizado; fallback válido aplicado.'
-            : 'Fornecedor esperado não utilizado sem fallback válido.',
+            ? extraInfo.length > 0
+              ? extraInfo.join(' | ')
+              : 'Fornecedor esperado não utilizado; fallback válido aplicado.'
+            : extraInfo.length > 0
+              ? extraInfo.join(' | ')
+              : 'Fornecedor esperado não utilizado sem fallback válido.',
       });
     }
   }
