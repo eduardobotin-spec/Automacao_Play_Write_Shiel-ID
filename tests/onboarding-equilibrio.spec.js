@@ -2,6 +2,8 @@ import { test, expect } from '@playwright/test';
 
 import { gerarHash } from '../services/gerarHash.js';
 import { processarDocumento } from '../services/processar_documento.js';
+import { processarBiometria } from '../services/processar_biometria.js';
+import { pollingStatus } from '../services/processar_polling.js';
 import { limparBanco } from '../services/limparBanco.js';
 
 test.describe('EQ — Equilíbrio · documento digital', () => {
@@ -14,9 +16,15 @@ test.describe('EQ — Equilíbrio · documento físico', () => {
   });
 
   test('EQ001 - Documento aprovado', async ({ request }) => {
-    const { hash } = await gerarHash(request, 'EQ001');
+    const { hash, hash_checker, cpf } = await gerarHash(request, 'EQ001');
     const docResponse = await processarDocumento(request, hash, 'EQ001_APROVADO');
     expect(docResponse.status()).toBe(200);
+    const bioResponse = await processarBiometria(request, hash, hash_checker, 'EQ001_APROVADO');
+    const status = await pollingStatus(request, hash, hash_checker, bioResponse.taskId, {
+      cpf,
+      nomeCenario: 'EQ001 - Documento aprovado',
+    });
+    expect(status).toBe('approved');
   });
 
   test('EQ002 - Spoofing reprovado', async ({ request }) => {

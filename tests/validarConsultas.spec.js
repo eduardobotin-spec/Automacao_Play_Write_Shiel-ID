@@ -7,6 +7,7 @@ import { getInvoicesItensByHash } from '../services/consultarInvoicesItens.js';
 import { getServicesByIds } from '../services/consultarServices.js';
 import { getActiveModulePrices, updateModulePricesByProvider } from '../services/consultarModulePrices.js';
 import { limparConsultasPorCpf } from '../services/limparConsultasPorCpf.js';
+import { limparConsultasPorPlaca } from '../services/limparConsultasPorPlaca.js';
 import { appendApiResultBlock } from '../services/apiResultLog.js';
 import { configurarModuleConsultPorConsultType } from '../services/configurarModuleConsult.js';
 import { processarBiometria } from '../services/processar_biometria.js';
@@ -1396,6 +1397,13 @@ async function limparBaseDosCenarios(cenarios = []) {
   }
 }
 
+async function limparBaseDosVeiculos(cenarios = []) {
+  const placas = Array.from(new Set(cenarios.map((c) => String(c?.placa ?? '').trim().toUpperCase()).filter(Boolean)));
+  for (const placa of placas) {
+    await limparConsultasPorPlaca(placa);
+  }
+}
+
 async function consultarDocumento(request, { cpf, consultType, clientAuth }) {
   const apiUser = process.env.API_USER || 'Homlop0kcQU9sqmSbjvubsI9jchkB0Yg';
   const apiPass = process.env.API_PASS || 'Q1pZOxntMCfAzXn0UKIH4tKIMkVp2pxt';
@@ -1424,7 +1432,7 @@ async function consultarVeiculo(request, { placa, clientAuth }) {
 }
 
 test.describe('Validar Consultas — Estrutura Base QA', () => {
-  test.describe.configure({ mode: 'serial' });
+
 
   const cenarioById = new Map(CENARIOS_CONSULTA.map((c) => [c.id, c]));
   const CENARIOS_CACHE_REPLAY = CACHE_REPLAY_SOURCE_IDS.map((id, idx) => {
@@ -1494,6 +1502,10 @@ test.describe('Validar Consultas — Estrutura Base QA', () => {
       }
 
       // ── 2) Cache ──
+      test.beforeAll(async () => {
+        await limparBaseDosCenarios(CENARIOS_CONSULTA);
+      });
+
       for (const c of CENARIOS_CACHE_REPLAY) {
         test(`${c.id} - ${c.nome}`, async ({ request }) => {
           const n = nome(c.id, c.nome);
@@ -1690,6 +1702,10 @@ test.describe('Validar Consultas — Estrutura Base QA', () => {
       }
 
       // ── 7) Veículo ─
+      test.beforeAll(async () => {
+        await limparBaseDosVeiculos(CENARIOS_VEICULO);
+      });
+
       for (const c of CENARIOS_VEICULO) {
         test(`${c.id} - ${c.nome}`, async ({ request }) => {
           const n = nome(c.id, c.nome);

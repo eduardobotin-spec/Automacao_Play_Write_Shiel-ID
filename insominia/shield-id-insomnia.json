@@ -1,0 +1,2695 @@
+{
+  "__export_format": 4,
+  "__export_date": "2026-05-22T15:19:52.851Z",
+  "__export_source": "opencode",
+  "resources": [
+    {
+      "_type": "workspace",
+      "_id": "wrk_shieldid",
+      "name": "Shield-ID - Consultas API",
+      "description": "Exportado automaticamente dos cenários de teste.\nTodas as requests de consulta da API Shield-ID.",
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "environment",
+      "_id": "env_staging",
+      "parentId": "wrk_shieldid",
+      "name": "Staging",
+      "data": {
+        "base_url": "https://shielid-staging.com",
+        "kyc_url": "https://kyc.shielid-staging.com",
+        "api_user": "",
+        "api_pass": "",
+        "tenant_id": "D7n4g9InxXWV52UE",
+        "cpf_ca001": "23134061805",
+        "cpf_ca002": "13186368685",
+        "cpf_ca003": "14749091910",
+        "cpf_ca005": "96477776472",
+        "cpf_ca006": "02819176470",
+        "cpf_ca007": "87960575134",
+        "cpf_ca008": "77593626253",
+        "cpf_ca009": "22024494773",
+        "cpf_ca010": "10589331914",
+        "cpf_ca011": "48758837817",
+        "cpf_ca012": "90801725615",
+        "cpf_ca013": "05114310151",
+        "cpf_ca014": "03138195997",
+        "cpf_ca015": "86893971168",
+        "cpf_ca016": "01188320343",
+        "cpf_ca017": "08301587580",
+        "cpf_ca018": "16369315613",
+        "cpf_ca019": "04560097283",
+        "cpf_ca020": "06683872201",
+        "cpf_cnh002": "06683872201",
+        "cpf_cnh007": "14749091910",
+        "cpf_cnh008": "96477776472",
+        "cpf_cnh009": "77593626253",
+        "cpf_cnh010": "10589331914",
+        "cpf_ps002": "02819176470",
+        "cpf_ps003": "87960575134",
+        "cpf_ps004": "22024494773",
+        "placa_vcl001": "ARN3I17",
+        "placa_vcl002": "ABC",
+        "placa_vcl003": "ZZZ0000"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request_group",
+      "_id": "grp_consulta",
+      "parentId": "wrk_shieldid",
+      "name": "1 - Consultas por CPF (Fornecedores Externos)",
+      "description": "Requisições de consulta de documento por CPF.\nEndpoint: POST /api/consultDocument",
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_CA001",
+      "parentId": "grp_consulta",
+      "name": "CA001 - CT001 - Consulta Full",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_ca001 }}",
+      "description": "CPF: {{ _.cpf_ca001 }}\nconsultType: telefone+endereco+email+beneficios_governo+pep_listas+impedidos_apostar+dados_cadastrais\n\nResposta esperada: 200 com hash e session_status.approved",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"telefone+endereco+email+beneficios_governo+pep_listas+impedidos_apostar+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_CA002",
+      "parentId": "grp_consulta",
+      "name": "CA002 - Telefone + Dados Cadastrais",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_ca002 }}",
+      "description": "CPF: {{ _.cpf_ca002 }}\nconsultType: telefone+dados_cadastrais\n\nResposta esperada: 200 com hash e session_status.approved",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"telefone+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_CA003",
+      "parentId": "grp_consulta",
+      "name": "CA003 - E-mail + Dados Cadastrais",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_ca003 }}",
+      "description": "CPF: {{ _.cpf_ca003 }}\nconsultType: email+dados_cadastrais\n\nResposta esperada: 200 com hash e session_status.approved",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"email+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_CA004",
+      "parentId": "grp_consulta",
+      "name": "CA004 - Endereço + Dados Cadastrais",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_ca005 }}",
+      "description": "CPF: {{ _.cpf_ca005 }}\nconsultType: endereco+dados_cadastrais\n\nResposta esperada: 200 com hash e session_status.approved",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"endereco+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_CA005",
+      "parentId": "grp_consulta",
+      "name": "CA005 - PEP e Listas + Dados Cadastrais",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_ca006 }}",
+      "description": "CPF: {{ _.cpf_ca006 }}\nconsultType: pep_listas+dados_cadastrais\n\nResposta esperada: 200 com hash e session_status.approved",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"pep_listas+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_CA006",
+      "parentId": "grp_consulta",
+      "name": "CA006 - Benefícios Governo + Dados Cadastrais",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_ca008 }}",
+      "description": "CPF: {{ _.cpf_ca008 }}\nconsultType: beneficios_governo+dados_cadastrais\n\nResposta esperada: 200 com hash e session_status.approved",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"beneficios_governo+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_CA007",
+      "parentId": "grp_consulta",
+      "name": "CA007 - Impedidos de Apostar + Dados Cadastrais",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_ca009 }}",
+      "description": "CPF: {{ _.cpf_ca009 }}\nconsultType: impedidos_apostar+dados_cadastrais\n\nResposta esperada: 200 com hash e session_status.approved",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"impedidos_apostar+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_CA008",
+      "parentId": "grp_consulta",
+      "name": "CA008 - Dados Financeiros + Dados Cadastrais",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_ca010 }}",
+      "description": "CPF: {{ _.cpf_ca010 }}\nconsultType: dados_financeiros+dados_cadastrais\n\nResposta esperada: 200 com hash e session_status.approved",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"dados_financeiros+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_CA009",
+      "parentId": "grp_consulta",
+      "name": "CA009 - Combinação: Telefone + E-mail + Dados Cadastrais",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_ca011 }}",
+      "description": "CPF: {{ _.cpf_ca011 }}\nconsultType: telefone+email+dados_cadastrais\n\nResposta esperada: 200 com hash e session_status.approved",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"telefone+email+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_CA010",
+      "parentId": "grp_consulta",
+      "name": "CA010 - Combinação: Endereço + PEP + Benefícios + Dados Cadastrais",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_ca012 }}",
+      "description": "CPF: {{ _.cpf_ca012 }}\nconsultType: endereco+pep_listas+beneficios_governo+dados_cadastrais\n\nResposta esperada: 200 com hash e session_status.approved",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"endereco+pep_listas+beneficios_governo+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_CA011",
+      "parentId": "grp_consulta",
+      "name": "CA011 - Combinação: Telefone + Impedidos + Dados Cadastrais",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_ca013 }}",
+      "description": "CPF: {{ _.cpf_ca013 }}\nconsultType: telefone+impedidos_apostar+dados_cadastrais\n\nResposta esperada: 200 com hash e session_status.approved",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"telefone+impedidos_apostar+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_CA012",
+      "parentId": "grp_consulta",
+      "name": "CA012 - Variação Preço 1: Telefone + E-mail + Dados Cadastrais",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_ca015 }}",
+      "description": "CPF: {{ _.cpf_ca015 }}\nconsultType: telefone+email+dados_cadastrais\n\nResposta esperada: 200 com hash e session_status.approved",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"telefone+email+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_CA013",
+      "parentId": "grp_consulta",
+      "name": "CA013 - Variação Preço 2: Endereço + PEP + Dados Cadastrais",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_ca016 }}",
+      "description": "CPF: {{ _.cpf_ca016 }}\nconsultType: endereco+pep_listas+dados_cadastrais\n\nResposta esperada: 200 com hash e session_status.approved",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"endereco+pep_listas+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_CA014",
+      "parentId": "grp_consulta",
+      "name": "CA014 - Variação Preço 3: Benefícios + Telefone + Dados Cadastrais",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_ca017 }}",
+      "description": "CPF: {{ _.cpf_ca017 }}\nconsultType: beneficios_governo+telefone+dados_cadastrais\n\nResposta esperada: 200 com hash e session_status.approved",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"beneficios_governo+telefone+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_CA015",
+      "parentId": "grp_consulta",
+      "name": "CA015 - Variação Preço 4: Impedidos + E-mail + Dados Cadastrais",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_ca018 }}",
+      "description": "CPF: {{ _.cpf_ca018 }}\nconsultType: impedidos_apostar+email+dados_cadastrais\n\nResposta esperada: 200 com hash e session_status.approved",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"impedidos_apostar+email+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_CA016",
+      "parentId": "grp_consulta",
+      "name": "CA016 - Variação Preço 5: Financeiro + Endereço + Dados Cadastrais",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_ca019 }}",
+      "description": "CPF: {{ _.cpf_ca019 }}\nconsultType: dados_financeiros+endereco+dados_cadastrais\n\nResposta esperada: 200 com hash e session_status.approved",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"dados_financeiros+endereco+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_CA017",
+      "parentId": "grp_consulta",
+      "name": "CA017 - Consulta Full + Dados Financeiros",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_ca020 }}",
+      "description": "CPF: {{ _.cpf_ca020 }}\nconsultType: telefone+endereco+email+beneficios_governo+pep_listas+impedidos_apostar+dados_financeiros+dados_cadastrais\n\nResposta esperada: 200 com hash e session_status.approved",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"telefone+endereco+email+beneficios_governo+pep_listas+impedidos_apostar+dados_financeiros+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_CA018",
+      "parentId": "grp_consulta",
+      "name": "CA018 - Consulta Full + CNH (sem CNH na base)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_ca020 }}",
+      "description": "CPF: {{ _.cpf_ca020 }}\nconsultType: full+consult_cnh\n\nResposta esperada: 200 com hash e session_status.approved",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"full+consult_cnh\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request_group",
+      "_id": "grp_cache",
+      "parentId": "wrk_shieldid",
+      "name": "2 - Cache Replay",
+      "description": "Replay de cache para cenários já consultados anteriormente.\nMesmo endpoint e body das consultas originais.",
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_CR001",
+      "parentId": "grp_cache",
+      "name": "CR001 - CACHE_REPLAY - CA002 - Telefone + Dados Cadastrais",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_ca002 }}",
+      "description": "Cache replay de CA002.\nCPF: {{ _.cpf_ca002 }}\nconsultType: telefone+dados_cadastrais",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"telefone+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_CR002",
+      "parentId": "grp_cache",
+      "name": "CR002 - CACHE_REPLAY - CA003 - E-mail + Dados Cadastrais",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_ca003 }}",
+      "description": "Cache replay de CA003.\nCPF: {{ _.cpf_ca003 }}\nconsultType: email+dados_cadastrais",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"email+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_CR003",
+      "parentId": "grp_cache",
+      "name": "CR003 - CACHE_REPLAY - CA004 - Endereço + Dados Cadastrais",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_ca005 }}",
+      "description": "Cache replay de CA004.\nCPF: {{ _.cpf_ca005 }}\nconsultType: endereco+dados_cadastrais",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"endereco+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_CR004",
+      "parentId": "grp_cache",
+      "name": "CR004 - CACHE_REPLAY - CA005 - PEP e Listas + Dados Cadastrais",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_ca006 }}",
+      "description": "Cache replay de CA005.\nCPF: {{ _.cpf_ca006 }}\nconsultType: pep_listas+dados_cadastrais",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"pep_listas+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_CR005",
+      "parentId": "grp_cache",
+      "name": "CR005 - CACHE_REPLAY - CA006 - Benefícios Governo + Dados Cadastrais",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_ca008 }}",
+      "description": "Cache replay de CA006.\nCPF: {{ _.cpf_ca008 }}\nconsultType: beneficios_governo+dados_cadastrais",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"beneficios_governo+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_CR006",
+      "parentId": "grp_cache",
+      "name": "CR006 - CACHE_REPLAY - CA007 - Impedidos de Apostar + Dados Cadastrais",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_ca009 }}",
+      "description": "Cache replay de CA007.\nCPF: {{ _.cpf_ca009 }}\nconsultType: impedidos_apostar+dados_cadastrais",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"impedidos_apostar+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_CR007",
+      "parentId": "grp_cache",
+      "name": "CR007 - CACHE_REPLAY - CA008 - Dados Financeiros + Dados Cadastrais",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_ca010 }}",
+      "description": "Cache replay de CA008.\nCPF: {{ _.cpf_ca010 }}\nconsultType: dados_financeiros+dados_cadastrais",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"dados_financeiros+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request_group",
+      "_id": "grp_cnh",
+      "parentId": "wrk_shieldid",
+      "name": "3 - CNH",
+      "description": "Consultas de CNH (Carteira Nacional de Habilitação).",
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_CNH001",
+      "parentId": "grp_cnh",
+      "name": "CNH001 - CNH Positivo - consult_cnh com CPF que tem CNH",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document=23134061805",
+      "description": "CNH: consult_cnh+dados_cadastrais\nEspera NÃO encontrar CNH.",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"consult_cnh+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_CNH002",
+      "parentId": "grp_cnh",
+      "name": "CNH002 - CNH Negativo - consult_cnh com CPF sem CNH na base",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_cnh002 }}",
+      "description": "CNH: consult_cnh+dados_cadastrais\nEspera NÃO encontrar CNH.",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"consult_cnh+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_CNH003",
+      "parentId": "grp_cnh",
+      "name": "CNH003 - CNH Positivo - full+consult_cnh com CPF que tem CNH",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document=23134061805",
+      "description": "CNH: full+consult_cnh\nEspera NÃO encontrar CNH.",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"full+consult_cnh\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_CNH004",
+      "parentId": "grp_cnh",
+      "name": "CNH004 - CNH Positivo - CNH + Financeiro",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document=23134061805",
+      "description": "CNH: consult_cnh+dados_financeiros+dados_cadastrais\nEspera NÃO encontrar CNH.",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"consult_cnh+dados_financeiros+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_CNH005",
+      "parentId": "grp_cnh",
+      "name": "CNH005 - CNH Positivo - CNH + Telefone",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document=23134061805",
+      "description": "CNH: consult_cnh+telefone+dados_cadastrais\nEspera NÃO encontrar CNH.",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"consult_cnh+telefone+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_CNH006",
+      "parentId": "grp_cnh",
+      "name": "CNH006 - CNH Positivo - CNH + Telefone + Email",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document=23134061805",
+      "description": "CNH: consult_cnh+telefone+email+dados_cadastrais\nEspera NÃO encontrar CNH.",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"consult_cnh+telefone+email+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_CNH007",
+      "parentId": "grp_cnh",
+      "name": "CNH007 - CNH Negativo - full+consult_cnh com CPF sem CNH (CA003)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_cnh007 }}",
+      "description": "CNH: full+consult_cnh\nEspera NÃO encontrar CNH.",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"full+consult_cnh\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_CNH008",
+      "parentId": "grp_cnh",
+      "name": "CNH008 - CNH Negativo - full+consult_cnh com CPF sem CNH (CA005)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_cnh008 }}",
+      "description": "CNH: full+consult_cnh\nEspera NÃO encontrar CNH.",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"full+consult_cnh\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_CNH009",
+      "parentId": "grp_cnh",
+      "name": "CNH009 - CNH Negativo - full+consult_cnh com CPF sem CNH (CA008)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_cnh009 }}",
+      "description": "CNH: full+consult_cnh\nEspera NÃO encontrar CNH.",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"full+consult_cnh\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_CNH010",
+      "parentId": "grp_cnh",
+      "name": "CNH010 - CNH Negativo - full+consult_cnh com CPF sem CNH (CA010)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_cnh010 }}",
+      "description": "CNH: full+consult_cnh\nEspera NÃO encontrar CNH.",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"full+consult_cnh\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request_group",
+      "_id": "grp_financeiro",
+      "parentId": "wrk_shieldid",
+      "name": "4 - Financeiro",
+      "description": "Consultas de dados financeiros.",
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_FI001",
+      "parentId": "grp_financeiro",
+      "name": "FI001 - Financeiro - CPF CA001",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document=23134061805",
+      "description": "Financeiro - CPF: 23134061805",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"dados_financeiros+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_FI002",
+      "parentId": "grp_financeiro",
+      "name": "FI002 - Financeiro - CPF CA008 (Beneficiário)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document=77593626253",
+      "description": "Financeiro - CPF: 77593626253",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"dados_financeiros+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_FI003",
+      "parentId": "grp_financeiro",
+      "name": "FI003 - Financeiro - CPF CA010 (Normal)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document=10589331914",
+      "description": "Financeiro - CPF: 10589331914",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"dados_financeiros+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_FI004",
+      "parentId": "grp_financeiro",
+      "name": "FI004 - Financeiro - CPF CA020 (Full Financeiro)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document=06683872201",
+      "description": "Financeiro - CPF: 06683872201",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"dados_financeiros+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request_group",
+      "_id": "grp_perfis",
+      "parentId": "wrk_shieldid",
+      "name": "5 - Perfis CPF",
+      "description": "Consultas de perfil de CPF (situação cadastral).",
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_PS001",
+      "parentId": "grp_perfis",
+      "name": "PS001 - Perfil CPF - CA001 (Regular)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document=23134061805",
+      "description": "Perfil CPF - Perfil CPF - CA001 (Regular)",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"dados_financeiros+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_PS002",
+      "parentId": "grp_perfis",
+      "name": "PS002 - Perfil CPF - CA006 (PEP)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_ps002 }}",
+      "description": "Perfil CPF - Perfil CPF - CA006 (PEP)",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"dados_financeiros+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_PS003",
+      "parentId": "grp_perfis",
+      "name": "PS003 - Perfil CPF - CA007 (Óbito)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_ps003 }}",
+      "description": "Perfil CPF - Perfil CPF - CA007 (Óbito)",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"dados_financeiros+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_PS004",
+      "parentId": "grp_perfis",
+      "name": "PS004 - Perfil CPF - CA009 (Menor Idade)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_ps004 }}",
+      "description": "Perfil CPF - Perfil CPF - CA009 (Menor Idade)",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"dados_financeiros+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request_group",
+      "_id": "grp_veiculo",
+      "parentId": "wrk_shieldid",
+      "name": "6 - Veículo",
+      "description": "Consultas de veículo por placa.\nEndpoint: POST /api/consultVehicle",
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_VCL001",
+      "parentId": "grp_veiculo",
+      "name": "VCL001 - Veículo Real - ARN3I17",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultVehicle?plate={{ _.placa_vcl001 }}",
+      "description": "Placa: {{ _.placa_vcl001 }}",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": ""
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_VCL002",
+      "parentId": "grp_veiculo",
+      "name": "VCL002 - Veículo - Placa Formato Inválido",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultVehicle?plate={{ _.placa_vcl002 }}",
+      "description": "Placa: {{ _.placa_vcl002 }}",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": ""
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_VCL003",
+      "parentId": "grp_veiculo",
+      "name": "VCL003 - Veículo - Placa Inexistente",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultVehicle?plate={{ _.placa_vcl003 }}",
+      "description": "Placa: {{ _.placa_vcl003 }}",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": ""
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request_group",
+      "_id": "grp_biometria",
+      "parentId": "wrk_shieldid",
+      "name": "7 - Biometria",
+      "description": "Fluxo completo de biometria: 1) Gerar Hash → 2) Enviar imagens → 3) Polling status.\nExecute as 3 requests em ordem para cada cenário.\nAs requests de Biometria (passo 2) necessitam que você anexe 6 imagens (CENTER_1.png a CENTER_6.png) manualmente.",
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request_group",
+      "_id": "sub_NB001",
+      "parentId": "grp_biometria",
+      "name": "NB001 - Fornecedor: Telefone + Dados Cadastrais (Hash+Biometria)",
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_NB001_hash",
+      "parentId": "sub_NB001",
+      "name": "01 - NB001 - Gerar Hash",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_ca001 }}",
+      "description": "Passo 1/3: Gerar hash da consulta.\nCPF: {{ _.cpf_ca001 }}\nconsultType: telefone+dados_cadastrais\n\nResposta inclui: hash, hash_checker",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"telefone+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_NB001_bio",
+      "parentId": "sub_NB001",
+      "name": "02 - NB001 - Enviar Biometria",
+      "method": "POST",
+      "url": "{{ _.kyc_url }}/api/v1/biometry/{{ _.tenant_id }}/{% response 'body', 'req_NB001_hash', '$.hash' %}/process-biometry",
+      "description": "Passo 2/3: Enviar imagens da biometria.\nbiometriaId: CA001_APROVADO\n\n📌 ATENÇÃO: Anexe 6 arquivos (CENTER_1.png a CENTER_6.png) nos campos \"files\" abaixo.\nAs imagens estão na pasta: biometria/CA001_APROVADO/",
+      "headers": [],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "multipart/form-data",
+        "params": [
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_1.png",
+            "id": "id_00001",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_2.png",
+            "id": "id_00002",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_3.png",
+            "id": "id_00003",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_4.png",
+            "id": "id_00004",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_5.png",
+            "id": "id_00005",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_6.png",
+            "id": "id_00006",
+            "type": "file",
+            "fileName": ""
+          }
+        ]
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_NB001_poll",
+      "parentId": "sub_NB001",
+      "name": "03 - NB001 - Polling Status",
+      "method": "GET",
+      "url": "{{ _.kyc_url }}/api/v1/kyc/{{ _.tenant_id }}/{% response 'body', 'req_NB001_hash', '$.hash' %}/task/{% response 'body', 'req_NB001_bio', '$.task_id' %}/status",
+      "description": "Passo 3/3: Polling do status da biometria.\nAguardar até status \"approved\" ou \"rejected\".\n\nResposta: { session_status: { status: \"approved\"|\"rejected\"|\"analysis\" } }",
+      "headers": [
+        {
+          "name": "tenant-id",
+          "value": "{{ _.tenant_id }}"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": ""
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request_group",
+      "_id": "sub_NB002",
+      "parentId": "grp_biometria",
+      "name": "NB002 - Fornecedor: E-mail + Dados Cadastrais (Hash+Biometria)",
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_NB002_hash",
+      "parentId": "sub_NB002",
+      "name": "01 - NB002 - Gerar Hash",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_ca002 }}",
+      "description": "Passo 1/3: Gerar hash da consulta.\nCPF: {{ _.cpf_ca002 }}\nconsultType: email+dados_cadastrais\n\nResposta inclui: hash, hash_checker",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"email+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_NB002_bio",
+      "parentId": "sub_NB002",
+      "name": "02 - NB002 - Enviar Biometria",
+      "method": "POST",
+      "url": "{{ _.kyc_url }}/api/v1/biometry/{{ _.tenant_id }}/{% response 'body', 'req_NB002_hash', '$.hash' %}/process-biometry",
+      "description": "Passo 2/3: Enviar imagens da biometria.\nbiometriaId: CA002_SPOOFING_REPROVADO\n\n📌 ATENÇÃO: Anexe 6 arquivos (CENTER_1.png a CENTER_6.png) nos campos \"files\" abaixo.\nAs imagens estão na pasta: biometria/CA002_SPOOFING_REPROVADO/",
+      "headers": [],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "multipart/form-data",
+        "params": [
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_1.png",
+            "id": "id_00007",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_2.png",
+            "id": "id_00008",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_3.png",
+            "id": "id_00009",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_4.png",
+            "id": "id_00010",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_5.png",
+            "id": "id_00011",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_6.png",
+            "id": "id_00012",
+            "type": "file",
+            "fileName": ""
+          }
+        ]
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_NB002_poll",
+      "parentId": "sub_NB002",
+      "name": "03 - NB002 - Polling Status",
+      "method": "GET",
+      "url": "{{ _.kyc_url }}/api/v1/kyc/{{ _.tenant_id }}/{% response 'body', 'req_NB002_hash', '$.hash' %}/task/{% response 'body', 'req_NB002_bio', '$.task_id' %}/status",
+      "description": "Passo 3/3: Polling do status da biometria.\nAguardar até status \"approved\" ou \"rejected\".\n\nResposta: { session_status: { status: \"approved\"|\"rejected\"|\"analysis\" } }",
+      "headers": [
+        {
+          "name": "tenant-id",
+          "value": "{{ _.tenant_id }}"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": ""
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request_group",
+      "_id": "sub_NB003",
+      "parentId": "grp_biometria",
+      "name": "NB003 - Fornecedor: Endereço + Dados Cadastrais (Hash+Biometria)",
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_NB003_hash",
+      "parentId": "sub_NB003",
+      "name": "01 - NB003 - Gerar Hash",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_ca003 }}",
+      "description": "Passo 1/3: Gerar hash da consulta.\nCPF: {{ _.cpf_ca003 }}\nconsultType: endereco+dados_cadastrais\n\nResposta inclui: hash, hash_checker",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"endereco+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_NB003_bio",
+      "parentId": "sub_NB003",
+      "name": "02 - NB003 - Enviar Biometria",
+      "method": "POST",
+      "url": "{{ _.kyc_url }}/api/v1/biometry/{{ _.tenant_id }}/{% response 'body', 'req_NB003_hash', '$.hash' %}/process-biometry",
+      "description": "Passo 2/3: Enviar imagens da biometria.\nbiometriaId: CA003_MULTIFACES_ANALISE\n\n📌 ATENÇÃO: Anexe 6 arquivos (CENTER_1.png a CENTER_6.png) nos campos \"files\" abaixo.\nAs imagens estão na pasta: biometria/CA003_MULTIFACES_ANALISE/",
+      "headers": [],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "multipart/form-data",
+        "params": [
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_1.png",
+            "id": "id_00013",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_2.png",
+            "id": "id_00014",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_3.png",
+            "id": "id_00015",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_4.png",
+            "id": "id_00016",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_5.png",
+            "id": "id_00017",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_6.png",
+            "id": "id_00018",
+            "type": "file",
+            "fileName": ""
+          }
+        ]
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_NB003_poll",
+      "parentId": "sub_NB003",
+      "name": "03 - NB003 - Polling Status",
+      "method": "GET",
+      "url": "{{ _.kyc_url }}/api/v1/kyc/{{ _.tenant_id }}/{% response 'body', 'req_NB003_hash', '$.hash' %}/task/{% response 'body', 'req_NB003_bio', '$.task_id' %}/status",
+      "description": "Passo 3/3: Polling do status da biometria.\nAguardar até status \"approved\" ou \"rejected\".\n\nResposta: { session_status: { status: \"approved\"|\"rejected\"|\"analysis\" } }",
+      "headers": [
+        {
+          "name": "tenant-id",
+          "value": "{{ _.tenant_id }}"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": ""
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request_group",
+      "_id": "sub_NB004",
+      "parentId": "grp_biometria",
+      "name": "NB004 - Fornecedor: PEP + Dados Cadastrais (Hash+Biometria)",
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_NB004_hash",
+      "parentId": "sub_NB004",
+      "name": "01 - NB004 - Gerar Hash",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_ca005 }}",
+      "description": "Passo 1/3: Gerar hash da consulta.\nCPF: {{ _.cpf_ca005 }}\nconsultType: pep_listas+dados_cadastrais\n\nResposta inclui: hash, hash_checker",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"pep_listas+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_NB004_bio",
+      "parentId": "sub_NB004",
+      "name": "02 - NB004 - Enviar Biometria",
+      "method": "POST",
+      "url": "{{ _.kyc_url }}/api/v1/biometry/{{ _.tenant_id }}/{% response 'body', 'req_NB004_hash', '$.hash' %}/process-biometry",
+      "description": "Passo 2/3: Enviar imagens da biometria.\nbiometriaId: CA005_SEM_MOVIMENTOS_REAIS_ANALISE\n\n📌 ATENÇÃO: Anexe 6 arquivos (CENTER_1.png a CENTER_6.png) nos campos \"files\" abaixo.\nAs imagens estão na pasta: biometria/CA005_SEM_MOVIMENTOS_REAIS_ANALISE/",
+      "headers": [],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "multipart/form-data",
+        "params": [
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_1.png",
+            "id": "id_00019",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_2.png",
+            "id": "id_00020",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_3.png",
+            "id": "id_00021",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_4.png",
+            "id": "id_00022",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_5.png",
+            "id": "id_00023",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_6.png",
+            "id": "id_00024",
+            "type": "file",
+            "fileName": ""
+          }
+        ]
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_NB004_poll",
+      "parentId": "sub_NB004",
+      "name": "03 - NB004 - Polling Status",
+      "method": "GET",
+      "url": "{{ _.kyc_url }}/api/v1/kyc/{{ _.tenant_id }}/{% response 'body', 'req_NB004_hash', '$.hash' %}/task/{% response 'body', 'req_NB004_bio', '$.task_id' %}/status",
+      "description": "Passo 3/3: Polling do status da biometria.\nAguardar até status \"approved\" ou \"rejected\".\n\nResposta: { session_status: { status: \"approved\"|\"rejected\"|\"analysis\" } }",
+      "headers": [
+        {
+          "name": "tenant-id",
+          "value": "{{ _.tenant_id }}"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": ""
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request_group",
+      "_id": "sub_NB005",
+      "parentId": "grp_biometria",
+      "name": "NB005 - Fornecedor: Benefícios + Dados Cadastrais (Hash+Biometria)",
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_NB005_hash",
+      "parentId": "sub_NB005",
+      "name": "01 - NB005 - Gerar Hash",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_ca006 }}",
+      "description": "Passo 1/3: Gerar hash da consulta.\nCPF: {{ _.cpf_ca006 }}\nconsultType: beneficios_governo+dados_cadastrais\n\nResposta inclui: hash, hash_checker",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"beneficios_governo+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_NB005_bio",
+      "parentId": "sub_NB005",
+      "name": "02 - NB005 - Enviar Biometria",
+      "method": "POST",
+      "url": "{{ _.kyc_url }}/api/v1/biometry/{{ _.tenant_id }}/{% response 'body', 'req_NB005_hash', '$.hash' %}/process-biometry",
+      "description": "Passo 2/3: Enviar imagens da biometria.\nbiometriaId: CA006_CPF_PEP_ANALISE\n\n📌 ATENÇÃO: Anexe 6 arquivos (CENTER_1.png a CENTER_6.png) nos campos \"files\" abaixo.\nAs imagens estão na pasta: biometria/CA006_CPF_PEP_ANALISE/",
+      "headers": [],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "multipart/form-data",
+        "params": [
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_1.png",
+            "id": "id_00025",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_2.png",
+            "id": "id_00026",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_3.png",
+            "id": "id_00027",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_4.png",
+            "id": "id_00028",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_5.png",
+            "id": "id_00029",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_6.png",
+            "id": "id_00030",
+            "type": "file",
+            "fileName": ""
+          }
+        ]
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_NB005_poll",
+      "parentId": "sub_NB005",
+      "name": "03 - NB005 - Polling Status",
+      "method": "GET",
+      "url": "{{ _.kyc_url }}/api/v1/kyc/{{ _.tenant_id }}/{% response 'body', 'req_NB005_hash', '$.hash' %}/task/{% response 'body', 'req_NB005_bio', '$.task_id' %}/status",
+      "description": "Passo 3/3: Polling do status da biometria.\nAguardar até status \"approved\" ou \"rejected\".\n\nResposta: { session_status: { status: \"approved\"|\"rejected\"|\"analysis\" } }",
+      "headers": [
+        {
+          "name": "tenant-id",
+          "value": "{{ _.tenant_id }}"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": ""
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request_group",
+      "_id": "sub_NB006",
+      "parentId": "grp_biometria",
+      "name": "NB006 - Fornecedor: Impedidos + Dados Cadastrais (Hash+Biometria)",
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_NB006_hash",
+      "parentId": "sub_NB006",
+      "name": "01 - NB006 - Gerar Hash",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_ca007 }}",
+      "description": "Passo 1/3: Gerar hash da consulta.\nCPF: {{ _.cpf_ca007 }}\nconsultType: impedidos_apostar+dados_cadastrais\n\nResposta inclui: hash, hash_checker",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"impedidos_apostar+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_NB006_bio",
+      "parentId": "sub_NB006",
+      "name": "02 - NB006 - Enviar Biometria",
+      "method": "POST",
+      "url": "{{ _.kyc_url }}/api/v1/biometry/{{ _.tenant_id }}/{% response 'body', 'req_NB006_hash', '$.hash' %}/process-biometry",
+      "description": "Passo 2/3: Enviar imagens da biometria.\nbiometriaId: CA007_OBITO_REPROVADO\n\n📌 ATENÇÃO: Anexe 6 arquivos (CENTER_1.png a CENTER_6.png) nos campos \"files\" abaixo.\nAs imagens estão na pasta: biometria/CA007_OBITO_REPROVADO/",
+      "headers": [],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "multipart/form-data",
+        "params": [
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_1.png",
+            "id": "id_00031",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_2.png",
+            "id": "id_00032",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_3.png",
+            "id": "id_00033",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_4.png",
+            "id": "id_00034",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_5.png",
+            "id": "id_00035",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_6.png",
+            "id": "id_00036",
+            "type": "file",
+            "fileName": ""
+          }
+        ]
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_NB006_poll",
+      "parentId": "sub_NB006",
+      "name": "03 - NB006 - Polling Status",
+      "method": "GET",
+      "url": "{{ _.kyc_url }}/api/v1/kyc/{{ _.tenant_id }}/{% response 'body', 'req_NB006_hash', '$.hash' %}/task/{% response 'body', 'req_NB006_bio', '$.task_id' %}/status",
+      "description": "Passo 3/3: Polling do status da biometria.\nAguardar até status \"approved\" ou \"rejected\".\n\nResposta: { session_status: { status: \"approved\"|\"rejected\"|\"analysis\" } }",
+      "headers": [
+        {
+          "name": "tenant-id",
+          "value": "{{ _.tenant_id }}"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": ""
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request_group",
+      "_id": "sub_NB007",
+      "parentId": "grp_biometria",
+      "name": "NB007 - Fornecedor: Telefone + E-mail + Dados Cadastrais (Hash+Biometria)",
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_NB007_hash",
+      "parentId": "sub_NB007",
+      "name": "01 - NB007 - Gerar Hash",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_ca008 }}",
+      "description": "Passo 1/3: Gerar hash da consulta.\nCPF: {{ _.cpf_ca008 }}\nconsultType: telefone+email+dados_cadastrais\n\nResposta inclui: hash, hash_checker",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"telefone+email+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_NB007_bio",
+      "parentId": "sub_NB007",
+      "name": "02 - NB007 - Enviar Biometria",
+      "method": "POST",
+      "url": "{{ _.kyc_url }}/api/v1/biometry/{{ _.tenant_id }}/{% response 'body', 'req_NB007_hash', '$.hash' %}/process-biometry",
+      "description": "Passo 2/3: Enviar imagens da biometria.\nbiometriaId: CA008_BENEFICIO_APROVADO\n\n📌 ATENÇÃO: Anexe 6 arquivos (CENTER_1.png a CENTER_6.png) nos campos \"files\" abaixo.\nAs imagens estão na pasta: biometria/CA008_BENEFICIO_APROVADO/",
+      "headers": [],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "multipart/form-data",
+        "params": [
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_1.png",
+            "id": "id_00037",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_2.png",
+            "id": "id_00038",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_3.png",
+            "id": "id_00039",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_4.png",
+            "id": "id_00040",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_5.png",
+            "id": "id_00041",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_6.png",
+            "id": "id_00042",
+            "type": "file",
+            "fileName": ""
+          }
+        ]
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_NB007_poll",
+      "parentId": "sub_NB007",
+      "name": "03 - NB007 - Polling Status",
+      "method": "GET",
+      "url": "{{ _.kyc_url }}/api/v1/kyc/{{ _.tenant_id }}/{% response 'body', 'req_NB007_hash', '$.hash' %}/task/{% response 'body', 'req_NB007_bio', '$.task_id' %}/status",
+      "description": "Passo 3/3: Polling do status da biometria.\nAguardar até status \"approved\" ou \"rejected\".\n\nResposta: { session_status: { status: \"approved\"|\"rejected\"|\"analysis\" } }",
+      "headers": [
+        {
+          "name": "tenant-id",
+          "value": "{{ _.tenant_id }}"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": ""
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request_group",
+      "_id": "sub_NB008",
+      "parentId": "grp_biometria",
+      "name": "NB008 - Cache: Telefone + Dados Cadastrais (Hash+Biometria)",
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_NB008_hash",
+      "parentId": "sub_NB008",
+      "name": "01 - NB008 - Gerar Hash",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_ca001 }}",
+      "description": "Passo 1/3: Gerar hash da consulta.\nCPF: {{ _.cpf_ca001 }}\nconsultType: telefone+dados_cadastrais\n\nResposta inclui: hash, hash_checker",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"telefone+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_NB008_bio",
+      "parentId": "sub_NB008",
+      "name": "02 - NB008 - Enviar Biometria",
+      "method": "POST",
+      "url": "{{ _.kyc_url }}/api/v1/biometry/{{ _.tenant_id }}/{% response 'body', 'req_NB008_hash', '$.hash' %}/process-biometry",
+      "description": "Passo 2/3: Enviar imagens da biometria.\nbiometriaId: CA001_APROVADO\n\n📌 ATENÇÃO: Anexe 6 arquivos (CENTER_1.png a CENTER_6.png) nos campos \"files\" abaixo.\nAs imagens estão na pasta: biometria/CA001_APROVADO/",
+      "headers": [],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "multipart/form-data",
+        "params": [
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_1.png",
+            "id": "id_00043",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_2.png",
+            "id": "id_00044",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_3.png",
+            "id": "id_00045",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_4.png",
+            "id": "id_00046",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_5.png",
+            "id": "id_00047",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_6.png",
+            "id": "id_00048",
+            "type": "file",
+            "fileName": ""
+          }
+        ]
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_NB008_poll",
+      "parentId": "sub_NB008",
+      "name": "03 - NB008 - Polling Status",
+      "method": "GET",
+      "url": "{{ _.kyc_url }}/api/v1/kyc/{{ _.tenant_id }}/{% response 'body', 'req_NB008_hash', '$.hash' %}/task/{% response 'body', 'req_NB008_bio', '$.task_id' %}/status",
+      "description": "Passo 3/3: Polling do status da biometria.\nAguardar até status \"approved\" ou \"rejected\".\n\nResposta: { session_status: { status: \"approved\"|\"rejected\"|\"analysis\" } }",
+      "headers": [
+        {
+          "name": "tenant-id",
+          "value": "{{ _.tenant_id }}"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": ""
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request_group",
+      "_id": "sub_NB009",
+      "parentId": "grp_biometria",
+      "name": "NB009 - Cache: E-mail + Dados Cadastrais (Hash+Biometria)",
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_NB009_hash",
+      "parentId": "sub_NB009",
+      "name": "01 - NB009 - Gerar Hash",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_ca002 }}",
+      "description": "Passo 1/3: Gerar hash da consulta.\nCPF: {{ _.cpf_ca002 }}\nconsultType: email+dados_cadastrais\n\nResposta inclui: hash, hash_checker",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"email+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_NB009_bio",
+      "parentId": "sub_NB009",
+      "name": "02 - NB009 - Enviar Biometria",
+      "method": "POST",
+      "url": "{{ _.kyc_url }}/api/v1/biometry/{{ _.tenant_id }}/{% response 'body', 'req_NB009_hash', '$.hash' %}/process-biometry",
+      "description": "Passo 2/3: Enviar imagens da biometria.\nbiometriaId: CA002_SPOOFING_REPROVADO\n\n📌 ATENÇÃO: Anexe 6 arquivos (CENTER_1.png a CENTER_6.png) nos campos \"files\" abaixo.\nAs imagens estão na pasta: biometria/CA002_SPOOFING_REPROVADO/",
+      "headers": [],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "multipart/form-data",
+        "params": [
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_1.png",
+            "id": "id_00049",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_2.png",
+            "id": "id_00050",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_3.png",
+            "id": "id_00051",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_4.png",
+            "id": "id_00052",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_5.png",
+            "id": "id_00053",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_6.png",
+            "id": "id_00054",
+            "type": "file",
+            "fileName": ""
+          }
+        ]
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_NB009_poll",
+      "parentId": "sub_NB009",
+      "name": "03 - NB009 - Polling Status",
+      "method": "GET",
+      "url": "{{ _.kyc_url }}/api/v1/kyc/{{ _.tenant_id }}/{% response 'body', 'req_NB009_hash', '$.hash' %}/task/{% response 'body', 'req_NB009_bio', '$.task_id' %}/status",
+      "description": "Passo 3/3: Polling do status da biometria.\nAguardar até status \"approved\" ou \"rejected\".\n\nResposta: { session_status: { status: \"approved\"|\"rejected\"|\"analysis\" } }",
+      "headers": [
+        {
+          "name": "tenant-id",
+          "value": "{{ _.tenant_id }}"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": ""
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request_group",
+      "_id": "sub_NB010",
+      "parentId": "grp_biometria",
+      "name": "NB010 - Cache: Endereço + Dados Cadastrais (Hash+Biometria)",
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_NB010_hash",
+      "parentId": "sub_NB010",
+      "name": "01 - NB010 - Gerar Hash",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/consultDocument?document={{ _.cpf_ca003 }}",
+      "description": "Passo 1/3: Gerar hash da consulta.\nCPF: {{ _.cpf_ca003 }}\nconsultType: endereco+dados_cadastrais\n\nResposta inclui: hash, hash_checker",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"consultType\": \"endereco+dados_cadastrais\"\n}"
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_NB010_bio",
+      "parentId": "sub_NB010",
+      "name": "02 - NB010 - Enviar Biometria",
+      "method": "POST",
+      "url": "{{ _.kyc_url }}/api/v1/biometry/{{ _.tenant_id }}/{% response 'body', 'req_NB010_hash', '$.hash' %}/process-biometry",
+      "description": "Passo 2/3: Enviar imagens da biometria.\nbiometriaId: CA003_MULTIFACES_ANALISE\n\n📌 ATENÇÃO: Anexe 6 arquivos (CENTER_1.png a CENTER_6.png) nos campos \"files\" abaixo.\nAs imagens estão na pasta: biometria/CA003_MULTIFACES_ANALISE/",
+      "headers": [],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "multipart/form-data",
+        "params": [
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_1.png",
+            "id": "id_00055",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_2.png",
+            "id": "id_00056",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_3.png",
+            "id": "id_00057",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_4.png",
+            "id": "id_00058",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_5.png",
+            "id": "id_00059",
+            "type": "file",
+            "fileName": ""
+          },
+          {
+            "name": "files",
+            "value": "",
+            "description": "CENTER_6.png",
+            "id": "id_00060",
+            "type": "file",
+            "fileName": ""
+          }
+        ]
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    },
+    {
+      "_type": "request",
+      "_id": "req_NB010_poll",
+      "parentId": "sub_NB010",
+      "name": "03 - NB010 - Polling Status",
+      "method": "GET",
+      "url": "{{ _.kyc_url }}/api/v1/kyc/{{ _.tenant_id }}/{% response 'body', 'req_NB010_hash', '$.hash' %}/task/{% response 'body', 'req_NB010_bio', '$.task_id' %}/status",
+      "description": "Passo 3/3: Polling do status da biometria.\nAguardar até status \"approved\" ou \"rejected\".\n\nResposta: { session_status: { status: \"approved\"|\"rejected\"|\"analysis\" } }",
+      "headers": [
+        {
+          "name": "tenant-id",
+          "value": "{{ _.tenant_id }}"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "username": "{{ _.api_user }}",
+        "password": "{{ _.api_pass }}"
+      },
+      "parameters": [],
+      "body": {
+        "mimeType": "application/json",
+        "text": ""
+      },
+      "_createdDate": "2026-05-22T15:19:52.851Z",
+      "_modifiedDate": "2026-05-22T15:19:52.851Z"
+    }
+  ]
+}
