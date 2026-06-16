@@ -5,6 +5,7 @@ import { processarBiometria } from '../services/processar_biometria.js';
 import { pollingStatus } from '../services/processar_polling.js';
 import { limparBanco } from '../services/limparBanco.js';
 import { gerarMassaBiometria } from '../GerarMassa.js';
+import { buscarFingerprintNoDb } from '../services/buscarFingerprintNoDb.js';
 
 test.describe('CA — Conversão alta (KYC → biometria → polling)', () => {
   test('Limpar base antes do teste', async () => {
@@ -108,7 +109,7 @@ test.describe('CA — Conversão alta (KYC → biometria → polling)', () => {
     expect(status).toBe('approved');
   });
 
-  
+
   test('CA011 - Onboarding com ZOOM', async ({ request }) => {
     const { hash, hash_checker, cpf } = await gerarHash(request, 'CA011');
     const bioResponse = await processarBiometria(request, hash, hash_checker, 'CA011');
@@ -140,7 +141,7 @@ test.describe('CA — Conversão alta (KYC → biometria → polling)', () => {
   //   expect(['approved', 'analysis', 'rejected']).toContain(status);
   // });
 
-  
+
   // test('CA014 - Onboarding com imagem cartoon', async ({ request }) => {
   //   const { hash, hash_checker, cpf } = await gerarHash(request, 'CA014');
   //   const bioResponse = await processarBiometria(request, hash, hash_checker, 'CARTOON');
@@ -152,7 +153,7 @@ test.describe('CA — Conversão alta (KYC → biometria → polling)', () => {
   // });
 
 
-  
+
 });
 
 test.describe('Casos Gerados', () => {
@@ -172,3 +173,56 @@ test.describe('Casos Gerados', () => {
     expect(status).toBe('approved');
   });
 });
+
+// ─────────────────────────────────────────────────────────────────────────────
+// FINGERPRINT — CT002: Fingerprint salvo em hash_jsons.devices após cada CA
+// Aguardando implementação da feature FingerprintJS — Tarefa #318
+// ─────────────────────────────────────────────────────────────────────────────
+test.describe('Fingerprint — CT002: hash_jsons.devices preenchido após KYC', () => {
+  test.skip(true, 'Aguardando implementação da feature FingerprintJS — Tarefa #318');
+
+  // Cenários ativos: CA001 (aprovado), CA002 (spoofing), CA007 (óbito)
+  // Representam os principais fluxos — aprovado, reprovado por fraude, reprovado por dado.
+  // Os demais CAs seguem o mesmo padrão e podem ser ativados conforme necessidade.
+
+  test('CA001 - Fingerprint salvo após onboarding aprovado', async ({ request }) => {
+    const { hash, hash_checker, cpf } = await gerarHash(request, 'CA001');
+    const bioResponse = await processarBiometria(request, hash, hash_checker, 'CA001_APROVADO');
+    await pollingStatus(request, hash, hash_checker, bioResponse.taskId, { cpf, nomeCenario: 'FP-CA001' });
+
+    // Aguarda persistência assíncrona do fingerprint
+    await new Promise(r => setTimeout(r, 5000));
+
+    const { found, devices } = await buscarFingerprintNoDb(hash);
+    expect(found).toBe(true);
+    expect(devices.length).toBeGreaterThan(0);
+    console.log('FP CA001 devices:', JSON.stringify(devices, null, 2));
+  });
+
+  test('CA002 - Fingerprint salvo após onboarding com spoofing', async ({ request }) => {
+    const { hash, hash_checker, cpf } = await gerarHash(request, 'CA002');
+    const bioResponse = await processarBiometria(request, hash, hash_checker, 'CA002_SPOOFING_REPROVADO');
+    await pollingStatus(request, hash, hash_checker, bioResponse.taskId, { cpf, nomeCenario: 'FP-CA002' });
+
+    await new Promise(r => setTimeout(r, 5000));
+
+    const { found, devices } = await buscarFingerprintNoDb(hash);
+    expect(found).toBe(true);
+    expect(devices.length).toBeGreaterThan(0);
+    console.log('FP CA002 devices:', JSON.stringify(devices, null, 2));
+  });
+
+  test('CA007 - Fingerprint salvo após onboarding com CPF em óbito', async ({ request }) => {
+    const { hash, hash_checker, cpf } = await gerarHash(request, 'CA007');
+    const bioResponse = await processarBiometria(request, hash, hash_checker, 'CA007_OBITO_REPROVADO');
+    await pollingStatus(request, hash, hash_checker, bioResponse.taskId, { cpf, nomeCenario: 'FP-CA007' });
+
+    await new Promise(r => setTimeout(r, 5000));
+
+    const { found, devices } = await buscarFingerprintNoDb(hash);
+    expect(found).toBe(true);
+    expect(devices.length).toBeGreaterThan(0);
+    console.log('FP CA007 devices:', JSON.stringify(devices, null, 2));
+  });
+});
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
