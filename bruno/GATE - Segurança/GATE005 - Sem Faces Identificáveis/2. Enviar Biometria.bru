@@ -1,0 +1,45 @@
+meta {
+  name: 2. Enviar Biometria
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{kyc_url}}/api/v1/biometry/{{tenant_id}}/{{hash}}/process-biometry
+  body: multipartForm
+}
+
+headers {
+  tenant-id: {{tenant_id}}
+  x-api-key: {{api_key}}
+}
+
+body:multipart-form {
+  files: @file(_biometria/CA010_CPF_NORMAL_SEM_FACES_IDENTIFICAVEIS_REPROVADO/center_1.png)
+  files: @file(_biometria/CA010_CPF_NORMAL_SEM_FACES_IDENTIFICAVEIS_REPROVADO/center_2.png)
+}
+
+script:pre-request {
+  bru.setVar("hash", bru.getVar("gate005_hash"));
+}
+
+script:post-response {
+  const body = res.getBody();
+  const taskId = body?.task_id ?? body?.taskId ?? body?.data?.task_id ?? null;
+  if (taskId) {
+    bru.setVar("gate005_task_id", taskId);
+  } else {
+    console.error("[GATE005] task_id não encontrado:", JSON.stringify(body));
+  }
+}
+
+tests {
+  test("Status 200 ou 202", function() {
+    expect([200, 202]).to.include(res.getStatus());
+  });
+  test("task_id presente", function() {
+    const body = res.getBody();
+    const taskId = body?.task_id ?? body?.taskId ?? body?.data?.task_id ?? null;
+    expect(taskId).to.not.be.null;
+  });
+}

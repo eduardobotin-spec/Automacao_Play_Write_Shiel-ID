@@ -1,0 +1,27 @@
+meta {
+  name: 2. Enviar Documento (sem x-api-key)
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{kyc_url}}/api/v1/kyc/{{tenant_id}}/{{hash}}/process-document
+  body: multipartForm
+}
+
+headers {
+  tenant-id: {{tenant_id}}
+}
+
+body:multipart-form {
+body:multipart-form {
+  document_side: front
+  document_image: @file(_documento_fisico/EQ001_APROVADO/frente.jpeg)
+}
+}
+
+tests {
+  test("Falha com 401", function() {
+    expect(res.getStatus()).to.equal(401);
+  });
+}

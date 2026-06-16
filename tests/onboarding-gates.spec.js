@@ -153,7 +153,7 @@ test.describe('GATES — MassaDeTeste (KYC → biometria → polling)', () => {
 
   for (const cpf of cpfs) {
     test(`${cpf} - MassaDeTeste`, async ({ request }) => {
-      const { hash, hash_checker } = await gerarHash(request, cpf);
+      const { hash, hash_checker } = await gerarHash(request, cpf, { mode: 'biometria' });
       const bioResponse = await enviarBiometria(request, hash, cpf, `${cpf} - MassaDeTeste`);
       const result = await pollingStatus(request, hash, hash_checker, bioResponse.taskId, {
         cpf,
@@ -180,7 +180,7 @@ test.describe('GATES — MassaDeTeste (KYC → biometria → polling)', () => {
 
   for (const cpf of spoofingCpfs) {
     test(`${cpf} - MassaDeTeste/Spoofing`, async ({ request }) => {
-      const { hash, hash_checker } = await gerarHash(request, cpf);
+      const { hash, hash_checker } = await gerarHash(request, cpf, { mode: 'biometria' });
       const bioResponse = await enviarBiometria(
         request,
         hash,

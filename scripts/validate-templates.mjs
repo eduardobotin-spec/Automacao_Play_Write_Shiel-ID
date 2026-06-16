@@ -57,8 +57,12 @@ function assertCA001LikeBody(body, where) {
     throw new Error(`${where}: step 1 deve desestruturar "{ hash, hash_checker }".`);
   }
   const c1args = d1.init.argument.arguments ?? [];
-  if (c1args.length !== 2 || !isIdent(c1args[0], 'request') || !isLiteral(c1args[1])) {
-    throw new Error(`${where}: step 1 deve ser "gerarHash(request, <string>)".`);
+  if (
+    (c1args.length !== 2 && c1args.length !== 3) ||
+    !isIdent(c1args[0], 'request') ||
+    !isLiteral(c1args[1])
+  ) {
+    throw new Error(`${where}: step 1 deve ser "gerarHash(request, <string>)" ou "gerarHash(request, <string>, <objeto>)".`);
   }
 
   // 2) const bioResponse = await processarBiometria(request, hash, hash_checker, <payload>);
@@ -141,8 +145,8 @@ function assertCA001LikeBody(body, where) {
 
 function assertEQ001LikeBody(body, where) {
   const stmts = body?.body ?? [];
-  if (stmts.length !== 3) {
-    throw new Error(`${where}: EQ precisa ter exatamente 3 statements (gerarHash, documento, expect).`);
+  if (stmts.length < 3) {
+    throw new Error(`${where}: EQ precisa ter pelo menos 3 statements (gerarHash, documento, expect).`);
   }
 
   // 1) const { hash } = await gerarHash(request, <cpf>);
@@ -151,12 +155,16 @@ function assertEQ001LikeBody(body, where) {
   const d1 = s1.declarations[0];
   if (d1.id?.type !== 'ObjectPattern') throw new Error(`${where}: step 1 deve desestruturar "{ hash }".`);
   const props = d1.id.properties?.map((p) => p.key?.name).filter(Boolean) ?? [];
-  if (!props.includes('hash') || props.includes('hash_checker')) {
-    throw new Error(`${where}: step 1 deve desestruturar apenas "{ hash }".`);
+  if (!props.includes('hash')) {
+    throw new Error(`${where}: step 1 deve desestruturar "{ hash }" (hash_checker e cpf opcionais).`);
   }
   const c1args = d1.init.argument.arguments ?? [];
-  if (c1args.length !== 2 || !isIdent(c1args[0], 'request') || !isLiteral(c1args[1])) {
-    throw new Error(`${where}: step 1 deve ser "gerarHash(request, <string>)".`);
+  if (
+    (c1args.length !== 2 && c1args.length !== 3) ||
+    !isIdent(c1args[0], 'request') ||
+    !isLiteral(c1args[1])
+  ) {
+    throw new Error(`${where}: step 1 deve ser "gerarHash(request, <string>)" ou "gerarHash(request, <string>, <objeto>)".`);
   }
 
   // 2) const docResponse = await processarDocumento(request, hash, <payload>);
@@ -253,4 +261,3 @@ if (allErrors.length) {
 }
 
 console.log('Validação de templates OK (CA001/EQ001).');
-

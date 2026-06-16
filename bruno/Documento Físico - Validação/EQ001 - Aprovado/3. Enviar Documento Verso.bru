@@ -1,0 +1,54 @@
+meta {
+  name: 3. Enviar Documento Verso
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{kyc_url}}/api/v1/kyc/{{tenant_id}}/{{hash}}/process-document
+  body: multipartForm
+}
+
+headers {
+  tenant-id: {{tenant_id}}
+  x-api-key: {{api_key}}
+}
+
+body:multipart-form {
+  document_side: back
+  document_image: @file(_documento_fisico/EQ001_APROVADO/verso.jpeg)
+}
+
+script:pre-request {
+  bru.setVar("hash", bru.getVar("eq001_hash"));
+  // a frente precisa ser processada antes do verso
+  await new Promise(resolve => setTimeout(resolve, 3000));
+}
+
+script:post-response {
+  const body = res.getBody();
+  console.log("[EQ001] Documento verso enviado:", res.getStatus());
+  if (res.getStatus() !== 200) {
+    console.error("[EQ001] Erro verso:", JSON.stringify(body));
+  }
+  // task_id necessario para o polling de status
+  const taskId = body?.task_id ?? body?.taskId ?? body?.data?.task_id
+    ?? body?.task_status?.task_id ?? null;
+  if (taskId) {
+    bru.setVar("eq001_task_id", taskId);
+  } else {
+    console.error("[EQ001] task_id nao encontrado no retorno do verso:", JSON.stringify(body));
+  }
+}
+
+tests {
+  test("Status 200", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+  test("task_id presente", function() {
+    const body = res.getBody();
+    const taskId = body?.task_id ?? body?.taskId ?? body?.data?.task_id
+      ?? body?.task_status?.task_id ?? null;
+    expect(taskId).to.not.be.null;
+  });
+}

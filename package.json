@@ -14,7 +14,10 @@
     "hashjson:motivos": "node scripts/listarHashJsonMotivos.mjs",
     "hashjson:rejection-freq": "node scripts/consolidarRejectionMessages.mjs",
     "dash:build": "node Dash_Resultados/generateDashboard.js",
-    "log:pdf": "node log_pdf/generateAllPdfs.js"
+    "log:pdf": "node log_pdf/generateAllPdfs.js",
+    "bruno:gerar": "node bruno/scripts/gerar-cenarios.js",
+    "bruno:clean": "node bruno/scripts/limpar-base.js",
+    "bruno:setup": "node bruno/scripts/limpar-base.js && node bruno/scripts/gerar-cenarios.js"
   },
   "devDependencies": {
     "@playwright/test": "^1.49.1",

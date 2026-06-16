@@ -1,0 +1,53 @@
+meta {
+  name: 3. Polling Status
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{kyc_url}}/api/v1/kyc/{{tenant_id}}/{{hash}}/task/{{task_id}}/status
+  body: none
+}
+
+headers {
+  tenant-id: {{tenant_id}}
+  x-api-key: {{api_key}}
+}
+
+script:pre-request {
+  bru.setVar("hash", bru.getVar("rn003_hash"));
+  bru.setVar("task_id", bru.getVar("rn003_task_id"));
+}
+
+script:post-response {
+  const finais = ["approved", "rejected", "error", "analysis"];
+  const url = bru.getEnvVar("kyc_url") + "/api/v1/kyc/" + bru.getEnvVar("tenant_id")
+    + "/" + bru.getVar("hash") + "/task/" + bru.getVar("task_id") + "/status";
+  const axios = require('axios');
+
+  let body = res.getBody();
+  let status = body?.session_status?.status ?? null;
+  let mensagem = body?.session_status?.status_message ?? null;
+
+  for (let i = 0; i < 12 && !finais.includes(status); i++) {
+    await new Promise(resolve => setTimeout(resolve, 3000));
+    const r = await axios.get(url, {
+      headers: { "tenant-id": bru.getEnvVar("tenant_id"), "x-api-key": bru.getEnvVar("api_key") }
+    });
+    body = r.data;
+    status = body?.session_status?.status ?? null;
+    mensagem = body?.session_status?.status_message ?? null;
+  }
+
+  bru.setVar("rn003_status", status);
+  bru.setVar("rn003_msg", mensagem);
+}
+
+tests {
+  test("Status 200", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+  test("RN003 -> status flexivel", function() {
+    expect(["approved", "analysis", "rejected"]).to.include(bru.getVar("rn003_status"));
+  });
+}

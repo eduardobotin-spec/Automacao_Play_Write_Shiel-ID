@@ -3,9 +3,8 @@ import { test, expect } from '@playwright/test';
 
 const URL =  'https://painel.shielid-staging.com/login?redirect=%2Fdashboard';
 
-//LOGIN ADMIN
-const EMAIL = 'zugote88@gmail.com';
-const PASSWORD = '123456';
+const EMAIL = process.env.ADMIN_EMAIL || 'zugote88@gmail.com';
+const PASSWORD = process.env.ADMIN_PASS || '123456';
 
 
 test.beforeEach('Login Dashboard', async ({ page }) => {
@@ -21,7 +20,7 @@ test.beforeEach('Login Dashboard', async ({ page }) => {
 });
 
 test('acessarConfiguracoes', async ({ page }) => {
-  await page.getByRole('texto', { name: 'Testes Automatizados' }).click();
+  await page.getByText('Testes Automatizados').first().click();
   await page.getByRole('button', { name: 'configurações' }).click();
-
+  await expect(page).toHaveURL(/configuracoes|settings|config/i);
 });

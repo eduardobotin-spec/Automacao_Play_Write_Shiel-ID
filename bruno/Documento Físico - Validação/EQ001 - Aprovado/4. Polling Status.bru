@@ -1,0 +1,87 @@
+meta {
+  name: 4. Polling Status
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{kyc_url}}/api/v1/kyc/{{tenant_id}}/{{hash}}/task/{{task_id}}/status
+  body: none
+}
+
+headers {
+  tenant-id: {{tenant_id}}
+  x-api-key: {{api_key}}
+}
+
+script:pre-request {
+  bru.setVar("hash", bru.getVar("eq001_hash"));
+  bru.setVar("task_id", bru.getVar("eq001_task_id"));
+}
+
+script:post-response {
+  // Requer Developer/Node sandbox (Collection Settings -> Safe Mode OFF).
+  // Usa axios (ja instalado em node_modules) -> fetch nao existe neste sandbox.
+  const axios = require('axios');
+  const CASO = "eq001";
+  const FINAIS = ["approved", "rejected", "error", "analysis"];
+  const MAX_TENTATIVAS = 30;   // 30 x 3s = 90s de teto
+  const INTERVALO_MS = 3000;
+
+  const url = bru.getEnvVar("kyc_url") + "/api/v1/kyc/" + bru.getEnvVar("tenant_id")
+    + "/" + bru.getVar("hash") + "/task/" + bru.getVar("task_id") + "/status";
+  const headers = {
+    "tenant-id": bru.getEnvVar("tenant_id"),
+    "x-api-key": bru.getEnvVar("api_key")
+  };
+
+  const lerStatus  = (b) => b?.session_status?.status ?? b?.status ?? null;
+  const lerMsg     = (b) => b?.session_status?.status_message ?? b?.status_message ?? null;
+  // a task assincrona (Celery): STARTED -> SUCCESS/FAILURE
+  const taskState  = (b) => b?.task_status?.status ?? null;
+  const taskFailed = (b) => b?.task_status?.failed === true || taskState(b) === "FAILURE";
+  // terminou = veredito final no session_status OU a task falhou (sai na hora)
+  const terminou   = (b) => FINAIS.includes(lerStatus(b)) || taskFailed(b);
+
+  let body = res.getBody();
+  let status = lerStatus(body);
+  let mensagem = lerMsg(body);
+  console.log(`[${CASO}] poll 0 -> session=${status} task=${taskState(body)}`);
+
+  for (let i = 1; i <= MAX_TENTATIVAS && !terminou(body); i++) {
+    await new Promise(r => setTimeout(r, INTERVALO_MS));
+    try {
+      const r = await axios.get(url, { headers });
+      body = r.data;
+      status = lerStatus(body);
+      mensagem = lerMsg(body);
+      console.log(`[${CASO}] poll ${i} -> http=${r.status} session=${status} task=${taskState(body)} ready=${body?.task_status?.ready}`);
+    } catch (e) {
+      const code = e.response?.status ?? "n/a";
+      console.error(`[${CASO}] poll ${i} ERRO: http=${code} ${e.message}`);
+    }
+  }
+
+  if (!FINAIS.includes(status) && taskFailed(body)) {
+    status = "error";
+    mensagem = mensagem ?? "task assincrona falhou (task_status.failed)";
+  }
+  if (!terminou(body)) {
+    console.error(`[${CASO}] timeout em ${MAX_TENTATIVAS} tentativas (session=${status}, task=${taskState(body)})`);
+  }
+
+  bru.setVar("eq001_status", status);
+  bru.setVar("eq001_msg", mensagem);
+}
+
+tests {
+  test("Status 200", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+  test("Status final alcancado (nao ficou em pending)", function() {
+    expect(["approved", "rejected", "error", "analysis"]).to.include(bru.getVar("eq001_status"));
+  });
+  test("EQ001 -> approved", function() {
+    expect(bru.getVar("eq001_status")).to.equal("approved");
+  });
+}

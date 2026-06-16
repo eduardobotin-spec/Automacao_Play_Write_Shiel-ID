@@ -1,0 +1,181 @@
+{
+  "info": {
+    "name": "ShieldID - KYC Staging",
+    "description": "Coleção completa de testes KYC — Staging.\nCenários organizados por fluxo: CA (Conversão Alta), EQ (Equilíbrio), LT (Transacional).\n\nVariáveis de coleção compartilhadas entre todos os cenários:\n- base_url, kyc_url, tenant_id, api_user, api_pass\n- hash e task_id são sobrescritos a cada execução de cenário.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url",  "value": "https://shielid-staging.com",        "type": "string" },
+    { "key": "kyc_url",   "value": "https://kyc.shielid-staging.com",     "type": "string" },
+    { "key": "tenant_id", "value": "D7n4g9InxXWV52UE",                    "type": "string" },
+    { "key": "api_user",  "value": "Homlop0kcQU9sqmSbjvubsI9jchkB0Yg",   "type": "string" },
+    { "key": "api_pass",  "value": "Q1pZOxntMCfAzXn0UKIH4tKIMkVp2pxt",   "type": "string" },
+    { "key": "cpf",       "value": "", "description": "Preenchido por cada cenário", "type": "string" },
+    { "key": "hash",      "value": "", "description": "Preenchido automaticamente pela etapa Gerar Hash", "type": "string" },
+    { "key": "task_id",   "value": "", "description": "Preenchido automaticamente pela etapa Enviar Biometria", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "CA — Conversão Alta (KYC + Biometria)",
+      "description": "Fluxo: Gerar Hash → Enviar Biometria → Polling Status",
+      "item": [
+        {
+          "name": "CA001 - Onboarding Padrão | Aprovado",
+          "description": "CPF: 23134061805 | Resultado esperado: approved\nImagens: postman/biometria/CA001_APROVADO/ (center_1 a center_6)\n\n⚠️ ANTES DE RODAR: abra '2. Enviar Biometria', vá em Body → form-data e selecione os 6 arquivos da pasta acima.",
+          "item": [
+            {
+              "name": "1. Gerar Hash",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": ["pm.collectionVariables.set('cpf', '23134061805');"],
+                    "type": "text/javascript"
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const body = pm.response.json();",
+                      "let hash = body?.hash ?? body?.data?.hash ?? null;",
+                      "if (!hash) {",
+                      "    const url = body?.url ?? body?.redirectUrl ?? body?.data?.url ?? null;",
+                      "    if (url) hash = url.split('/').pop().split('?')[0];",
+                      "}",
+                      "if (hash) {",
+                      "    pm.collectionVariables.set('hash', hash);",
+                      "    console.log('[CA001] Hash salvo:', hash);",
+                      "} else {",
+                      "    console.error('[CA001] Hash não encontrado:', JSON.stringify(body));",
+                      "}",
+                      "pm.test('Status 200', () => pm.response.to.have.status(200));",
+                      "pm.test('Hash presente', () => pm.expect(hash).to.not.be.null);"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    { "key": "username", "value": "{{api_user}}", "type": "string" },
+                    { "key": "password", "value": "{{api_pass}}", "type": "string" }
+                  ]
+                },
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/getNewHashKYC?documentExpected={{cpf}}",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "getNewHashKYC"],
+                  "query": [{ "key": "documentExpected", "value": "{{cpf}}" }]
+                }
+              }
+            },
+            {
+              "name": "2. Enviar Biometria",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const body = pm.response.json();",
+                      "const taskId = body?.task_id ?? body?.taskId ?? body?.data?.task_id ?? null;",
+                      "if (taskId) {",
+                      "    pm.collectionVariables.set('task_id', taskId);",
+                      "    console.log('[CA001] task_id salvo:', taskId);",
+                      "} else {",
+                      "    console.error('[CA001] task_id não encontrado:', JSON.stringify(body));",
+                      "}",
+                      "pm.test('Status 200 ou 202', () => pm.expect(pm.response.code).to.be.oneOf([200, 202]));",
+                      "pm.test('task_id presente', () => pm.expect(taskId).to.not.be.null);"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    { "key": "username", "value": "{{api_user}}", "type": "string" },
+                    { "key": "password", "value": "{{api_pass}}", "type": "string" }
+                  ]
+                },
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    { "key": "files", "type": "file", "src": [], "description": "center_1.png — pasta: biometria/CA001_APROVADO/" },
+                    { "key": "files", "type": "file", "src": [], "description": "center_2.png" },
+                    { "key": "files", "type": "file", "src": [], "description": "center_3.png" },
+                    { "key": "files", "type": "file", "src": [], "description": "center_4.png" },
+                    { "key": "files", "type": "file", "src": [], "description": "center_5.png" },
+                    { "key": "files", "type": "file", "src": [], "description": "center_6.png" }
+                  ]
+                },
+                "url": {
+                  "raw": "{{kyc_url}}/api/v1/biometry/{{tenant_id}}/{{hash}}/process-biometry",
+                  "host": ["{{kyc_url}}"],
+                  "path": ["api", "v1", "biometry", "{{tenant_id}}", "{{hash}}", "process-biometry"]
+                }
+              }
+            },
+            {
+              "name": "3. Polling Status",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "// Aguarda 10s antes de consultar — biometria demora para processar",
+                      "const delay = ms => new Promise(res => setTimeout(res, ms));",
+                      "await delay(10000);"
+                    ],
+                    "type": "text/javascript"
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const body = pm.response.json();",
+                      "const sessionStatus = body?.session_status?.status ?? null;",
+                      "console.log('[CA001] Status:', sessionStatus);",
+                      "pm.test('Status 200', () => pm.response.to.have.status(200));",
+                      "pm.test('session_status presente', () => pm.expect(body).to.have.property('session_status'));",
+                      "pm.test('CA001 → approved', () => pm.expect(sessionStatus).to.equal('approved'));"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    { "key": "username", "value": "{{api_user}}", "type": "string" },
+                    { "key": "password", "value": "{{api_pass}}", "type": "string" }
+                  ]
+                },
+                "header": [
+                  { "key": "tenant-id", "value": "{{tenant_id}}", "type": "text" }
+                ],
+                "url": {
+                  "raw": "{{kyc_url}}/api/v1/kyc/{{tenant_id}}/{{hash}}/task/{{task_id}}/status",
+                  "host": ["{{kyc_url}}"],
+                  "path": ["api", "v1", "kyc", "{{tenant_id}}", "{{hash}}", "task", "{{task_id}}", "status"]
+                },
+                "description": "Resultado esperado: approved\n\nEsta etapa aguarda 10s automaticamente antes de consultar.\nSe retornar pending, rode esta requisição novamente manualmente após alguns segundos."
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

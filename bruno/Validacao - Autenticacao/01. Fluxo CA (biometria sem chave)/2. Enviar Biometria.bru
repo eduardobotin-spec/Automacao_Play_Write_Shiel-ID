@@ -1,0 +1,26 @@
+meta {
+  name: 2. Enviar Biometria (sem x-api-key)
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{kyc_url}}/api/v1/biometry/{{tenant_id}}/{{hash}}/process-biometry
+  body: multipartForm
+}
+
+headers {
+  tenant-id: {{tenant_id}}
+}
+
+body:multipart-form {
+body:multipart-form {
+  files: @file(_biometria/CA001_APROVADO/center_1.png)
+}
+}
+
+tests {
+  test("Falha com 401", function() {
+    expect(res.getStatus()).to.equal(401);
+  });
+}

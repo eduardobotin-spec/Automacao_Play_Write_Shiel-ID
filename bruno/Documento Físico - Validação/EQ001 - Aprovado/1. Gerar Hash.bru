@@ -1,0 +1,50 @@
+meta {
+  name: 1. Gerar Hash
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/api/getNewHashKYC?documentExpected={{cpf}}
+  body: none
+  auth: basic
+}
+
+auth:basic {
+  username: {{api_user}}
+  password: {{api_pass}}
+}
+
+headers {
+  Content-Type: application/json
+}
+
+script:pre-request {
+  // CPF que deve casar com o titular do documento em EQ001_APROVADO.
+  bru.setVar("cpf", "23134061805");
+}
+
+script:post-response {
+  const body = res.getBody();
+  let hash = body?.hash ?? body?.data?.hash ?? null;
+  if (!hash) {
+    const url = body?.url ?? body?.redirectUrl ?? body?.data?.url ?? null;
+    if (url) hash = url.split('/').pop().split('?')[0];
+  }
+  if (hash) {
+    bru.setVar("eq001_hash", hash);
+  } else {
+    console.error("[EQ001] Hash nao encontrado:", JSON.stringify(body));
+  }
+}
+
+tests {
+  test("Status 200", function() {
+    expect(res.getStatus()).to.equal(200);
+  });
+  test("Hash presente", function() {
+    const body = res.getBody();
+    let hash = body?.hash ?? body?.data?.hash ?? null;
+    expect(hash).to.not.be.null;
+  });
+}

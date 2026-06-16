@@ -143,11 +143,6 @@ export async function pollingStatus(request, hash, hash_checker, taskId, logCtx,
       return lastStatus;
     }
 
-    if (isKnownSessionStatus) {
-      lastStatus = sessionStatus;
-      lastStatusMessage = extrairStatusMessageFromBody(body);
-    }
-
     await sleep(intervalo);
   }
 

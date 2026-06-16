@@ -1,0 +1,1034 @@
+{
+  "config": {
+    "argv": [
+      "/home/ze/.nvm/versions/node/v22.21.0/bin/node",
+      "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/node_modules/.bin/playwright",
+      "test",
+      "--ui"
+    ],
+    "configFile": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/playwright.config.js",
+    "rootDir": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/specs",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "admin",
+        "name": "admin",
+        "testDir": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/specs",
+        "testIgnore": [],
+        "testMatch": [
+          "**/specs/admin/**/*.spec.js"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "painel",
+        "name": "painel",
+        "testDir": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/specs",
+        "testIgnore": [],
+        "testMatch": [
+          "**/specs/painel/**/*.spec.js"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "fluxos",
+        "name": "fluxos",
+        "testDir": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/specs",
+        "testIgnore": [],
+        "testMatch": [
+          "**/specs/fluxos/**/*.spec.js"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "html",
+        {
+          "outputFolder": "playwright-report",
+          "open": "never"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results.json"
+        }
+      ],
+      [
+        "list",
+        null
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "fluxos/kyc-risco-zero-sem-email.spec.js",
+      "file": "fluxos/kyc-risco-zero-sem-email.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Campo Telefone — KYC (task #269)",
+          "file": "fluxos/kyc-risco-zero-sem-email.spec.js",
+          "line": 77,
+          "column": 6,
+          "specs": [
+            {
+              "title": "CA-1: rótulo \"Celular\" está visível na tela",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "fluxos",
+                  "projectName": "fluxos",
+                  "results": [
+                    {
+                      "workerIndex": 27,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 890,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[suite] KYC_URL em uso: https://shielid-staging.com/kyc/D7n4g9InxXWV52UE/HoRZvAetrMlOS6kE5jVmcnHlj9yNPEy4\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-16T19:50:06.050Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/test-results/fluxos-kyc-risco-zero-sem--a2dac-elular-está-visível-na-tela-fluxos/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "49102ade24212be82ef0-84e7ccb14fa6aaf94fea",
+              "file": "fluxos/kyc-risco-zero-sem-email.spec.js",
+              "line": 93,
+              "column": 7
+            },
+            {
+              "title": "CA-2/BDD-1: país padrão é Brasil (+55) e máscara BR aplicada",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "fluxos",
+                  "projectName": "fluxos",
+                  "results": [
+                    {
+                      "workerIndex": 27,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 681,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-16T19:50:07.141Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/test-results/fluxos-kyc-risco-zero-sem--4b428-il-55-e-máscara-BR-aplicada-fluxos/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "49102ade24212be82ef0-edface451158e67aae02",
+              "file": "fluxos/kyc-risco-zero-sem-email.spec.js",
+              "line": 103,
+              "column": 7
+            },
+            {
+              "title": "CA-8: botão \"Continuar\" desabilitado sem input",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "fluxos",
+                  "projectName": "fluxos",
+                  "results": [
+                    {
+                      "workerIndex": 27,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 569,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-16T19:50:08.013Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/test-results/fluxos-kyc-risco-zero-sem--55fda-nuar-desabilitado-sem-input-fluxos/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "49102ade24212be82ef0-da895e5e289c04a56963",
+              "file": "fluxos/kyc-risco-zero-sem-email.spec.js",
+              "line": 114,
+              "column": 7
+            },
+            {
+              "title": "CA-10: campo tem inputmode=\"tel\" e autocomplete=\"tel\"",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "fluxos",
+                  "projectName": "fluxos",
+                  "results": [
+                    {
+                      "workerIndex": 27,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 654,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-16T19:50:08.673Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/test-results/fluxos-kyc-risco-zero-sem--41c5f-ode-tel-e-autocomplete-tel--fluxos/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "49102ade24212be82ef0-6725910c6addc3999eca",
+              "file": "fluxos/kyc-risco-zero-sem-email.spec.js",
+              "line": 124,
+              "column": 7
+            },
+            {
+              "title": "CA-10: área de toque do seletor de país tem altura ≥ 44px",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "fluxos",
+                  "projectName": "fluxos",
+                  "results": [
+                    {
+                      "workerIndex": 27,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 720,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-16T19:50:09.423Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/test-results/fluxos-kyc-risco-zero-sem--eea74-r-de-país-tem-altura-≥-44px-fluxos/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "49102ade24212be82ef0-af36a8ee8a95743cb816",
+              "file": "fluxos/kyc-risco-zero-sem-email.spec.js",
+              "line": 136,
+              "column": 7
+            },
+            {
+              "title": "CA-3/BDD-3: número válido BR formata corretamente e habilita \"Continuar\"",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "fluxos",
+                  "projectName": "fluxos",
+                  "results": [
+                    {
+                      "workerIndex": 27,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 640,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-16T19:50:10.254Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/test-results/fluxos-kyc-risco-zero-sem--f95c2-mente-e-habilita-Continuar--fluxos/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "49102ade24212be82ef0-0a662f8e4946693d9a73",
+              "file": "fluxos/kyc-risco-zero-sem-email.spec.js",
+              "line": 149,
+              "column": 7
+            },
+            {
+              "title": "CA-3: número válido exibe ícone de sucesso (check)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "location": {
+                        "file": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/specs/fluxos/kyc-risco-zero-sem-email.spec.js",
+                        "line": 162,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "expectedStatus": "skipped",
+                  "projectId": "fluxos",
+                  "projectName": "fluxos",
+                  "results": [
+                    {
+                      "workerIndex": 27,
+                      "parallelIndex": 0,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-16T19:50:10.979Z",
+                      "annotations": [
+                        {
+                          "type": "skip",
+                          "location": {
+                            "file": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/specs/fluxos/kyc-risco-zero-sem-email.spec.js",
+                            "line": 162,
+                            "column": 8
+                          }
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "49102ade24212be82ef0-fb7b6d1408675cad0b37",
+              "file": "fluxos/kyc-risco-zero-sem-email.spec.js",
+              "line": 162,
+              "column": 8
+            },
+            {
+              "title": "CA-4/BDD-2: número incompleto desabilita botão e exibe \"Número incompleto\"",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "fluxos",
+                  "projectName": "fluxos",
+                  "results": [
+                    {
+                      "workerIndex": 27,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 746,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-16T19:50:10.979Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/test-results/fluxos-kyc-risco-zero-sem--684f3--e-exibe-Número-incompleto--fluxos/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "49102ade24212be82ef0-ed05db2988b378be1ea4",
+              "file": "fluxos/kyc-risco-zero-sem-email.spec.js",
+              "line": 167,
+              "column": 7
+            },
+            {
+              "title": "CA-10: campo recebe aria-invalid=\"true\" quando número incompleto",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "fluxos",
+                  "projectName": "fluxos",
+                  "results": [
+                    {
+                      "workerIndex": 27,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 667,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-16T19:50:11.815Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/test-results/fluxos-kyc-risco-zero-sem--71b77-ue-quando-número-incompleto-fluxos/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "49102ade24212be82ef0-1d27880923eb033dcd58",
+              "file": "fluxos/kyc-risco-zero-sem-email.spec.js",
+              "line": 181,
+              "column": 7
+            },
+            {
+              "title": "CA-7/BDD-7: letras e símbolos são ignorados no campo",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "fluxos",
+                  "projectName": "fluxos",
+                  "results": [
+                    {
+                      "workerIndex": 27,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 615,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-16T19:50:12.583Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/test-results/fluxos-kyc-risco-zero-sem--87d2d-olos-são-ignorados-no-campo-fluxos/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "49102ade24212be82ef0-07f5ab15b2b82bcc1c6f",
+              "file": "fluxos/kyc-risco-zero-sem-email.spec.js",
+              "line": 194,
+              "column": 7
+            },
+            {
+              "title": "CA-2: seletor de país é clicável e abre lista pesquisável",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "fluxos",
+                  "projectName": "fluxos",
+                  "results": [
+                    {
+                      "workerIndex": 27,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 873,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-16T19:50:13.332Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/test-results/fluxos-kyc-risco-zero-sem--d2301-el-e-abre-lista-pesquisável-fluxos/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "49102ade24212be82ef0-5e2f366ec6b9c1f48cdf",
+              "file": "fluxos/kyc-risco-zero-sem-email.spec.js",
+              "line": 209,
+              "column": 7
+            },
+            {
+              "title": "CA-11/BDD-8: lista de países exibe opção \"Outros\"",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "fluxos",
+                  "projectName": "fluxos",
+                  "results": [
+                    {
+                      "workerIndex": 27,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 660,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-16T19:50:14.300Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/test-results/fluxos-kyc-risco-zero-sem--caee1--países-exibe-opção-Outros--fluxos/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "49102ade24212be82ef0-759837bcb07d599f7f6d",
+              "file": "fluxos/kyc-risco-zero-sem-email.spec.js",
+              "line": 222,
+              "column": 7
+            },
+            {
+              "title": "CA-5/BDD-4: trocar país mantém dígitos e aplica nova máscara",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "fluxos",
+                  "projectName": "fluxos",
+                  "results": [
+                    {
+                      "workerIndex": 27,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 737,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-16T19:50:15.054Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/test-results/fluxos-kyc-risco-zero-sem--483e2-gitos-e-aplica-nova-máscara-fluxos/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "49102ade24212be82ef0-bd638ff835611d45fa95",
+              "file": "fluxos/kyc-risco-zero-sem-email.spec.js",
+              "line": 235,
+              "column": 7
+            },
+            {
+              "title": "BDD-9: trocar país com número incompleto não exibe mensagem de erro",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "fluxos",
+                  "projectName": "fluxos",
+                  "results": [
+                    {
+                      "workerIndex": 27,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 808,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-16T19:50:15.888Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/test-results/fluxos-kyc-risco-zero-sem--21ce5--não-exibe-mensagem-de-erro-fluxos/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "49102ade24212be82ef0-58b2fcd431faa0f231d6",
+              "file": "fluxos/kyc-risco-zero-sem-email.spec.js",
+              "line": 253,
+              "column": 7
+            },
+            {
+              "title": "BDD-10: ao trocar país cursor posiciona ao final do conteúdo",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "fluxos",
+                  "projectName": "fluxos",
+                  "results": [
+                    {
+                      "workerIndex": 27,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 912,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-16T19:50:16.838Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/test-results/fluxos-kyc-risco-zero-sem--794ec-iciona-ao-final-do-conteúdo-fluxos/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "49102ade24212be82ef0-e08eb2372526c74afce3",
+              "file": "fluxos/kyc-risco-zero-sem-email.spec.js",
+              "line": 268,
+              "column": 7
+            },
+            {
+              "title": "CA-6/BDD-5: colar número com DDI detecta país e separa DDI",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "fluxos",
+                  "projectName": "fluxos",
+                  "results": [
+                    {
+                      "workerIndex": 27,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 838,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-16T19:50:17.854Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/test-results/fluxos-kyc-risco-zero-sem--450d4-I-detecta-país-e-separa-DDI-fluxos/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "49102ade24212be82ef0-999eae24b9cb8f2f0572",
+              "file": "fluxos/kyc-risco-zero-sem-email.spec.js",
+              "line": 286,
+              "column": 7
+            },
+            {
+              "title": "BDD-6: falha na detecção exibe \"+XX\" com ícone de globo",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "location": {
+                        "file": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/specs/fluxos/kyc-risco-zero-sem-email.spec.js",
+                        "line": 302,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "expectedStatus": "skipped",
+                  "projectId": "fluxos",
+                  "projectName": "fluxos",
+                  "results": [
+                    {
+                      "workerIndex": 27,
+                      "parallelIndex": 0,
+                      "status": "skipped",
+                      "duration": 0,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-16T19:50:18.780Z",
+                      "annotations": [
+                        {
+                          "type": "skip",
+                          "location": {
+                            "file": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/specs/fluxos/kyc-risco-zero-sem-email.spec.js",
+                            "line": 302,
+                            "column": 8
+                          }
+                        }
+                      ],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "49102ade24212be82ef0-57bba9f9e6ef83b22e82",
+              "file": "fluxos/kyc-risco-zero-sem-email.spec.js",
+              "line": 302,
+              "column": 8
+            },
+            {
+              "title": "CA-11: \"Outros\" deixa campo DDI editável e remove máscara",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "fluxos",
+                  "projectName": "fluxos",
+                  "results": [
+                    {
+                      "workerIndex": 27,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 647,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-16T19:50:18.780Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/test-results/fluxos-kyc-risco-zero-sem--c7507-I-editável-e-remove-máscara-fluxos/trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "49102ade24212be82ef0-7d40bed286b973837639",
+              "file": "fluxos/kyc-risco-zero-sem-email.spec.js",
+              "line": 309,
+              "column": 7
+            },
+            {
+              "title": "CA-12: \"Outros\" respeita DDI máx 4 e telefone mín 5 / máx 15",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "fluxos",
+                  "projectName": "fluxos",
+                  "results": [
+                    {
+                      "workerIndex": 27,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 656,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: <= \u001b[32m4\u001b[39m\nReceived:    \u001b[31m5\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: <= \u001b[32m4\u001b[39m\nReceived:    \u001b[31m5\u001b[39m\n    at /mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/specs/fluxos/kyc-risco-zero-sem-email.spec.js:336:29",
+                        "location": {
+                          "file": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/specs/fluxos/kyc-risco-zero-sem-email.spec.js",
+                          "column": 29,
+                          "line": 336
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 334 |\u001b[39m       \u001b[36mawait\u001b[39m ddiInput\u001b[33m.\u001b[39mfill(\u001b[32m'12345'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 335 |\u001b[39m       \u001b[36mconst\u001b[39m ddiVal \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m ddiInput\u001b[33m.\u001b[39minputValue()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 336 |\u001b[39m       expect(ddiVal\u001b[33m.\u001b[39mlength)\u001b[33m.\u001b[39mtoBeLessThanOrEqual(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 337 |\u001b[39m\n \u001b[90m 338 |\u001b[39m       \u001b[36mconst\u001b[39m phoneInput \u001b[33m=\u001b[39m campoTelefone(page)\u001b[33m;\u001b[39m\n \u001b[90m 339 |\u001b[39m       \u001b[36mawait\u001b[39m phoneInput\u001b[33m.\u001b[39mfill(\u001b[32m'1234'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/specs/fluxos/kyc-risco-zero-sem-email.spec.js",
+                            "column": 29,
+                            "line": 336
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: <= \u001b[32m4\u001b[39m\nReceived:    \u001b[31m5\u001b[39m\n\n\u001b[0m \u001b[90m 334 |\u001b[39m       \u001b[36mawait\u001b[39m ddiInput\u001b[33m.\u001b[39mfill(\u001b[32m'12345'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 335 |\u001b[39m       \u001b[36mconst\u001b[39m ddiVal \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m ddiInput\u001b[33m.\u001b[39minputValue()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 336 |\u001b[39m       expect(ddiVal\u001b[33m.\u001b[39mlength)\u001b[33m.\u001b[39mtoBeLessThanOrEqual(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                             \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 337 |\u001b[39m\n \u001b[90m 338 |\u001b[39m       \u001b[36mconst\u001b[39m phoneInput \u001b[33m=\u001b[39m campoTelefone(page)\u001b[33m;\u001b[39m\n \u001b[90m 339 |\u001b[39m       \u001b[36mawait\u001b[39m phoneInput\u001b[33m.\u001b[39mfill(\u001b[32m'1234'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[2m    at /mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/specs/fluxos/kyc-risco-zero-sem-email.spec.js:336:29\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-16T19:50:19.559Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/test-results/fluxos-kyc-risco-zero-sem--88ceb-x-4-e-telefone-mín-5-máx-15-fluxos/test-failed-1.png"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/test-results/fluxos-kyc-risco-zero-sem--88ceb-x-4-e-telefone-mín-5-máx-15-fluxos/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/test-results/fluxos-kyc-risco-zero-sem--88ceb-x-4-e-telefone-mín-5-máx-15-fluxos/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/specs/fluxos/kyc-risco-zero-sem-email.spec.js",
+                        "column": 29,
+                        "line": 336
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "49102ade24212be82ef0-b344811f4fd9e1a479e5",
+              "file": "fluxos/kyc-risco-zero-sem-email.spec.js",
+              "line": 326,
+              "column": 7
+            },
+            {
+              "title": "BDD-11: \"Outros\" mantém DDI ao trocar de país e retornar",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "fluxos",
+                  "projectName": "fluxos",
+                  "results": [
+                    {
+                      "workerIndex": 28,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 1142,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"999\"\u001b[39m\nReceived: \u001b[31m\"\u001b[7m+\u001b[27m999\"\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"999\"\u001b[39m\nReceived: \u001b[31m\"\u001b[7m+\u001b[27m999\"\u001b[39m\n    at /mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/specs/fluxos/kyc-risco-zero-sem-email.spec.js:376:22",
+                        "location": {
+                          "file": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/specs/fluxos/kyc-risco-zero-sem-email.spec.js",
+                          "column": 22,
+                          "line": 376
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 374 |\u001b[39m\n \u001b[90m 375 |\u001b[39m       \u001b[36mconst\u001b[39m ddiVal \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m ddiInput\u001b[33m.\u001b[39minputValue()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 376 |\u001b[39m       expect(ddiVal)\u001b[33m.\u001b[39mtoBe(\u001b[32m'999'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 377 |\u001b[39m     } \u001b[36mfinally\u001b[39m {\n \u001b[90m 378 |\u001b[39m       \u001b[36mawait\u001b[39m ctx\u001b[33m.\u001b[39mclose()\u001b[33m;\u001b[39m\n \u001b[90m 379 |\u001b[39m     }\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/specs/fluxos/kyc-risco-zero-sem-email.spec.js",
+                            "column": 22,
+                            "line": 376
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"999\"\u001b[39m\nReceived: \u001b[31m\"\u001b[7m+\u001b[27m999\"\u001b[39m\n\n\u001b[0m \u001b[90m 374 |\u001b[39m\n \u001b[90m 375 |\u001b[39m       \u001b[36mconst\u001b[39m ddiVal \u001b[33m=\u001b[39m \u001b[36mawait\u001b[39m ddiInput\u001b[33m.\u001b[39minputValue()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 376 |\u001b[39m       expect(ddiVal)\u001b[33m.\u001b[39mtoBe(\u001b[32m'999'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                      \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 377 |\u001b[39m     } \u001b[36mfinally\u001b[39m {\n \u001b[90m 378 |\u001b[39m       \u001b[36mawait\u001b[39m ctx\u001b[33m.\u001b[39mclose()\u001b[33m;\u001b[39m\n \u001b[90m 379 |\u001b[39m     }\u001b[0m\n\u001b[2m    at /mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/specs/fluxos/kyc-risco-zero-sem-email.spec.js:376:22\u001b[22m"
+                        }
+                      ],
+                      "stdout": [
+                        {
+                          "text": "[suite] KYC_URL em uso: https://shielid-staging.com/kyc/D7n4g9InxXWV52UE/HoRZvAetrMlOS6kE5jVmcnHlj9yNPEy4\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-06-16T19:50:22.461Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/test-results/fluxos-kyc-risco-zero-sem--c37b8-o-trocar-de-país-e-retornar-fluxos/test-failed-1.png"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/test-results/fluxos-kyc-risco-zero-sem--c37b8-o-trocar-de-país-e-retornar-fluxos/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/test-results/fluxos-kyc-risco-zero-sem--c37b8-o-trocar-de-país-e-retornar-fluxos/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/mnt/c/Users/dev.shield/Documents/automacaoGIT/Automacao_Play_Write_Shiel-ID/projetoWeb/specs/fluxos/kyc-risco-zero-sem-email.spec.js",
+                        "column": 22,
+                        "line": 376
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "49102ade24212be82ef0-6dca087848104e92c663",
+              "file": "fluxos/kyc-risco-zero-sem-email.spec.js",
+              "line": 352,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-06-16T19:50:03.922Z",
+    "duration": 20077.77600000007,
+    "expected": 16,
+    "skipped": 2,
+    "unexpected": 2,
+    "flaky": 0
+  }
+}
